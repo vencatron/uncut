@@ -275,6 +275,18 @@
             transition: all 0.3s ease;
         }
 
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
         /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
@@ -1338,6 +1350,20 @@
                 display: none;
             }
 
+            nav.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-card);
+                padding: 1rem 2rem 1.5rem;
+                border-bottom: 1px solid var(--border);
+                gap: 0.25rem;
+                box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+            }
+
             .mobile-menu-btn {
                 display: block;
             }
@@ -1535,6 +1561,10 @@
     <!-- Header -->
     <header id="header">
         <div class="header-container">
+            <a href="#" class="logo">
+                <img src="logo-new.png" alt="Uncut Packaging">
+                <span class="logo-text">UN<span>CUT</span></span>
+            </a>
             <nav>
                 <a href="#story">Story</a>
                 <a href="#products">Products</a>
@@ -1711,6 +1741,10 @@
         <div class="footer-container">
             <div class="footer-grid">
                 <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <img src="logo-new.png" alt="Uncut Packaging">
+                        <span class="logo-text">UN<span>CUT</span></span>
+                    </a>
                     <p>Your trusted source for premium PPE and packaging supplies. Serving healthcare, food service, and industrial sectors with quality products and exceptional service.</p>
                     <div class="social-links">
                         <a href="#" class="social-link">
@@ -2080,13 +2114,29 @@
                 if (target) {
                     const headerOffset = header.offsetHeight + (window.innerWidth > 768 ? 44 : 32);
                     const elementPosition = target.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
                     window.scrollTo({
                         top: offsetPosition,
                         behavior: 'smooth'
                     });
                 }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mainNav = document.querySelector('header nav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('open');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        mainNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('open');
+                mobileMenuBtn.classList.remove('active');
             });
         });
 
