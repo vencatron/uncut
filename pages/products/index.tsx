@@ -110,35 +110,37 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-2 mb-10 border-b border-divider pb-6">
-          <Button
-            radius="none"
-            size="sm"
-            variant={activeCategory === "all" ? "solid" : "bordered"}
-            color={activeCategory === "all" ? "primary" : "default"}
-            className="text-xs font-bold uppercase tracking-wider"
-            onPress={() => handleFilterChange("all")}
-          >
-            All Products ({allProducts.length})
-          </Button>
-          {COLLECTIONS.map((col) => {
-            const cat = categories.find((c) => c.handle === col.handle);
-            const count = cat?.products.length ?? 0;
-            const isActive = activeCategory === col.handle;
-            return (
-              <Button
-                key={col.handle}
-                radius="none"
-                size="sm"
-                variant={isActive ? "solid" : "bordered"}
-                color={isActive ? "primary" : "default"}
-                className="text-xs font-bold uppercase tracking-wider"
-                onPress={() => handleFilterChange(col.handle)}
-              >
-                {col.label} ({count})
-              </Button>
-            );
-          })}
+        <div className="-mx-6 px-6 mb-10 border-b border-divider pb-6 overflow-x-auto scrollbar-hide">
+          <div className="flex gap-2 min-w-max sm:flex-wrap sm:min-w-0">
+            <Button
+              radius="none"
+              size="md"
+              variant={activeCategory === "all" ? "solid" : "bordered"}
+              color={activeCategory === "all" ? "primary" : "default"}
+              className="text-xs font-bold uppercase tracking-wider shrink-0"
+              onPress={() => handleFilterChange("all")}
+            >
+              All ({allProducts.length})
+            </Button>
+            {COLLECTIONS.map((col) => {
+              const cat = categories.find((c) => c.handle === col.handle);
+              const count = cat?.products.length ?? 0;
+              const isActive = activeCategory === col.handle;
+              return (
+                <Button
+                  key={col.handle}
+                  radius="none"
+                  size="md"
+                  variant={isActive ? "solid" : "bordered"}
+                  color={isActive ? "primary" : "default"}
+                  className="text-xs font-bold uppercase tracking-wider shrink-0"
+                  onPress={() => handleFilterChange(col.handle)}
+                >
+                  {col.label} ({count})
+                </Button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Grid */}

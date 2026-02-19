@@ -11,11 +11,11 @@ import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
+import Image from "next/image";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-import { Logo } from "@/components/icons";
 
 export const Navbar = () => {
   return (
@@ -26,11 +26,15 @@ export const Navbar = () => {
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-2" href="/">
-            <Logo />
-            <p className="font-bold text-inherit tracking-widest uppercase text-sm">
-              Uncut Packaging
-            </p>
+          <NextLink className="flex justify-start items-center" href="/">
+            <Image
+              src="/UncutLogo_776x.webp"
+              alt="Uncut Packaging"
+              width={120}
+              height={48}
+              className="object-contain dark:invert"
+              priority
+            />
           </NextLink>
         </NavbarBrand>
         <div className="hidden lg:flex gap-6 justify-start ml-4">
@@ -75,15 +79,15 @@ export const Navbar = () => {
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
         <ThemeSwitch />
-        <NavbarMenuToggle />
+        <NavbarMenuToggle className="w-10 h-10" />
       </NavbarContent>
 
-      <NavbarMenu className="bg-background/95 backdrop-blur-md pt-6">
-        <div className="mx-4 mt-2 flex flex-col gap-4">
+      <NavbarMenu className="bg-background/95 backdrop-blur-md pt-4 pb-8">
+        <div className="flex flex-col gap-1 mt-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
-                className="font-semibold tracking-wide uppercase text-sm"
+                className="w-full py-4 px-2 font-semibold tracking-wide uppercase text-base border-b border-divider"
                 color={
                   index === siteConfig.navMenuItems.length - 1
                     ? "primary"
@@ -96,6 +100,20 @@ export const Navbar = () => {
               </Link>
             </NavbarMenuItem>
           ))}
+        </div>
+        <div className="mt-6 px-2">
+          <Button
+            as={Link}
+            className="w-full font-semibold tracking-wide uppercase text-base"
+            color="primary"
+            isExternal
+            href={siteConfig.links.contact}
+            radius="none"
+            size="lg"
+            variant="solid"
+          >
+            Get a Quote
+          </Button>
         </div>
       </NavbarMenu>
     </HeroUINavbar>

@@ -10,3 +10,11 @@
     --font-sans: var(--font-sans), "Space Grotesk", sans-serif;
     --font-mono: var(--font-mono), "Fira Code", monospace;
 }
+
+@utility scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
