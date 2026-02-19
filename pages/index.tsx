@@ -184,7 +184,7 @@ export default function IndexPage({ categories }: HomePageProps) {
             const img = product.images[0]?.src;
             const price = getMinPrice(product);
             return (
-              <div key={product.id} className="group">
+              <NextLink key={product.id} href={`/products/${product.handle}`} className="group block">
                 <div className="relative aspect-square overflow-hidden border border-divider bg-stone-50 transition-colors group-hover:border-primary">
                   {img ? (
                     <Image
@@ -210,7 +210,7 @@ export default function IndexPage({ categories }: HomePageProps) {
                     </p>
                   )}
                 </div>
-              </div>
+              </NextLink>
             );
           })}
         </div>

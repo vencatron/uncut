@@ -1,5 +1,6 @@
 import type { GetStaticProps } from "next";
 import Image from "next/image";
+import NextLink from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Link } from "@heroui/link";
@@ -151,7 +152,7 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
               const price = getMinPrice(product);
               const variantCount = getAvailableVariantCount(product);
               return (
-                <div key={product.id} className="group flex flex-col">
+                <NextLink key={product.id} href={`/products/${product.handle}`} className="group flex flex-col">
                   {/* Image */}
                   <div className="relative aspect-square overflow-hidden border border-divider bg-stone-50 transition-colors group-hover:border-primary">
                     {img ? (
@@ -203,7 +204,7 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
                       )}
                     </div>
                   </div>
-                </div>
+                </NextLink>
               );
             })}
           </div>
