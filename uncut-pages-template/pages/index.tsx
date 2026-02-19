@@ -135,7 +135,7 @@ export default function IndexPage() {
           <Button
             as={Link}
             className="border-default-400 px-8 font-semibold uppercase tracking-wider text-foreground hover:border-primary hover:text-primary"
-            href={siteConfig.links.docs}
+            href="/products"
             radius="none"
             size="lg"
             variant="bordered"

@@ -11,7 +11,7 @@ export const siteConfig = {
     },
     {
       label: "Products",
-      href: "/docs",
+      href: "/products",
     },
     {
       label: "Pricing",
@@ -33,7 +33,7 @@ export const siteConfig = {
     },
     {
       label: "Products",
-      href: "/docs",
+      href: "/products",
     },
     {
       label: "Pricing",
@@ -55,7 +55,7 @@ export const siteConfig = {
   links: {
     github: "https://github.com/uncutpackages",
     twitter: "https://twitter.com/uncutpackages",
-    docs: "https://uncutpackages.com",
+    products: "https://uncutpackages.com/products",
     discord: "https://discord.gg/uncutpackages",
     sponsor: "https://uncutpackages.com/contact",
   },
