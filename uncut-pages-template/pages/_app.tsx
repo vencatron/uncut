@@ -20,8 +20,3 @@ export default function App({ Component, pageProps }: AppProps) {
     </HeroUIProvider>
   );
 }
-
-export const fonts = {
-  sans: fontSans.style.fontFamily,
-  mono: fontMono.style.fontFamily,
-};
