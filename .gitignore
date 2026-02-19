@@ -9,11 +9,17 @@
 /coverage
 
 # next.js
-/.next/
+.next/
 /out/
 
 # production
 /build
+
+# leftover subdirectories
+uncut-pages-template/
+
+# claude
+.claude/
 
 # misc
 .DS_Store
