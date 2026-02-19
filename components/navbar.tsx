@@ -63,7 +63,8 @@ export const Navbar = () => {
             as={Link}
             className="text-sm font-semibold tracking-wide uppercase"
             color="primary"
-            href={siteConfig.links.sponsor}
+            isExternal
+            href={siteConfig.links.contact}
             radius="none"
             variant="solid"
           >

@@ -2,7 +2,6 @@ import { Link } from "@heroui/link";
 import { Divider } from "@heroui/divider";
 
 import { Head } from "./head";
-
 import { Navbar } from "@/components/navbar";
 import { siteConfig } from "@/config/site";
 
@@ -26,8 +25,9 @@ export default function DefaultLayout({
                 Uncut Packaging
               </p>
               <p className="text-default-500 text-sm max-w-sm">
-                Premium custom packaging solutions engineered for brands that
-                demand quality, durability, and impact.
+                Your trusted source for PPE, protective equipment, and packaging
+                supplies. Safety Zone, SHOWA, QSPAC, and more — all ready to
+                ship.
               </p>
             </div>
             <div>
@@ -52,10 +52,18 @@ export default function DefaultLayout({
               </p>
               <div className="flex flex-col gap-2">
                 <Link
+                  isExternal
                   className="text-sm text-default-500 hover:text-primary transition-colors"
-                  href="/contact"
+                  href={siteConfig.links.contact}
                 >
                   Get in Touch
+                </Link>
+                <Link
+                  isExternal
+                  className="text-sm text-default-500 hover:text-primary transition-colors"
+                  href={siteConfig.links.store}
+                >
+                  Shop Online
                 </Link>
               </div>
             </div>
@@ -63,18 +71,7 @@ export default function DefaultLayout({
           <Divider className="my-8" />
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-default-400 text-xs">
-              © {new Date().getFullYear()} Uncut Packaging. All rights
-              reserved.
-            </p>
-            <p className="text-default-400 text-xs">
-              Built with{" "}
-              <Link
-                isExternal
-                className="text-primary text-xs"
-                href="https://heroui.com"
-              >
-                HeroUI
-              </Link>
+              © {new Date().getFullYear()} Uncut Packaging. All rights reserved.
             </p>
           </div>
         </div>
