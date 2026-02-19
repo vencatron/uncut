@@ -53,10 +53,6 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/uncutpackages",
-    twitter: "https://twitter.com/uncutpackages",
-    products: "https://uncutpackages.com/products",
-    discord: "https://discord.gg/uncutpackages",
     sponsor: "https://uncutpackages.com/contact",
   },
 };

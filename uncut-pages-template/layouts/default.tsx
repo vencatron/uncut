@@ -52,20 +52,6 @@ export default function DefaultLayout({
               </p>
               <div className="flex flex-col gap-2">
                 <Link
-                  isExternal
-                  className="text-sm text-default-500 hover:text-primary transition-colors"
-                  href={siteConfig.links.twitter}
-                >
-                  Twitter
-                </Link>
-                <Link
-                  isExternal
-                  className="text-sm text-default-500 hover:text-primary transition-colors"
-                  href={siteConfig.links.github}
-                >
-                  GitHub
-                </Link>
-                <Link
                   className="text-sm text-default-500 hover:text-primary transition-colors"
                   href="/contact"
                 >
