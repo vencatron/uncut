@@ -8,11 +8,7 @@ import { Chip } from "@heroui/chip";
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { siteConfig } from "@/config/site";
-import {
-  getAllCategorizedProducts,
-  COLLECTIONS,
-  getMinPrice,
-} from "@/lib/shopify";
+import { getAllCategorizedProducts, getMinPrice } from "@/lib/shopify";
 import { ProductCollection } from "@/types";
 
 const trustSignals = [
@@ -119,7 +115,7 @@ export default function IndexPage({ categories }: HomePageProps) {
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5">
           {categories.map((cat) => {
             const img = cat.products[0]?.images[0]?.src;
-            const colMeta = COLLECTIONS.find((c) => c.handle === cat.handle);
+
             return (
               <NextLink
                 key={cat.handle}
