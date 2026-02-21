@@ -1,4 +1,5 @@
 import type { GetStaticProps } from "next";
+
 import Image from "next/image";
 import NextLink from "next/link";
 import { useEffect, useState } from "react";
@@ -37,6 +38,7 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
       const q = router.query.category;
       const handle = typeof q === "string" ? q : "all";
       const valid = COLLECTIONS.some((c) => c.handle === handle);
+
       setActiveCategory(valid ? handle : "all");
     }
   }, [router.isReady, router.query.category]);
@@ -49,13 +51,14 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
         query: handle !== "all" ? { category: handle } : {},
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   }
 
   // Build a deduplicated flat product list with category metadata
   const allProducts: DisplayProduct[] = [];
   const seen = new Set<number>();
+
   for (const cat of categories) {
     for (const p of cat.products) {
       if (!seen.has(p.id)) {
@@ -75,7 +78,7 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
       : allProducts.filter((p) => p.categoryHandle === activeCategory);
 
   const activeCollectionMeta = COLLECTIONS.find(
-    (c) => c.handle === activeCategory
+    (c) => c.handle === activeCategory,
   );
 
   return (
@@ -114,11 +117,11 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
         <div className="-mx-6 px-6 mb-10 border-b border-divider pb-6 overflow-x-auto scrollbar-hide">
           <div className="flex gap-2 min-w-max sm:flex-wrap sm:min-w-0">
             <Button
+              className="text-xs font-bold uppercase tracking-wider shrink-0"
+              color={activeCategory === "all" ? "primary" : "default"}
               radius="none"
               size="md"
               variant={activeCategory === "all" ? "solid" : "bordered"}
-              color={activeCategory === "all" ? "primary" : "default"}
-              className="text-xs font-bold uppercase tracking-wider shrink-0"
               onPress={() => handleFilterChange("all")}
             >
               All ({allProducts.length})
@@ -127,14 +130,15 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
               const cat = categories.find((c) => c.handle === col.handle);
               const count = cat?.products.length ?? 0;
               const isActive = activeCategory === col.handle;
+
               return (
                 <Button
                   key={col.handle}
+                  className="text-xs font-bold uppercase tracking-wider shrink-0"
+                  color={isActive ? "primary" : "default"}
                   radius="none"
                   size="md"
                   variant={isActive ? "solid" : "bordered"}
-                  color={isActive ? "primary" : "default"}
-                  className="text-xs font-bold uppercase tracking-wider shrink-0"
                   onPress={() => handleFilterChange(col.handle)}
                 >
                   {col.label} ({count})
@@ -151,17 +155,22 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
               const img = product.images[0]?.src;
               const price = getMinPrice(product);
               const variantCount = getAvailableVariantCount(product);
+
               return (
-                <NextLink key={product.id} href={`/products/${product.handle}`} className="group flex flex-col">
+                <NextLink
+                  key={product.id}
+                  className="group flex flex-col"
+                  href={`/products/${product.handle}`}
+                >
                   {/* Image */}
                   <div className="relative aspect-square overflow-hidden border border-divider bg-stone-50 transition-colors group-hover:border-primary">
                     {img ? (
                       <Image
-                        src={img}
-                        alt={product.title}
                         fill
+                        alt={product.title}
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                        src={img}
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center text-default-200 text-5xl">
@@ -228,13 +237,13 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
             </p>
           </div>
           <Button
-            as={Link}
             isExternal
-            href={siteConfig.links.contact}
+            as={Link}
+            className="shrink-0 px-10 font-semibold uppercase tracking-wider"
             color="primary"
+            href={siteConfig.links.contact}
             radius="none"
             size="lg"
-            className="shrink-0 px-10 font-semibold uppercase tracking-wider"
           >
             Get a Quote
           </Button>
@@ -246,6 +255,7 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
 
 export const getStaticProps: GetStaticProps<ProductsPageProps> = async () => {
   const categories = await getAllCategorizedProducts();
+
   return {
     props: { categories },
     revalidate: 3600,

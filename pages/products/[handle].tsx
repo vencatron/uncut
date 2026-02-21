@@ -1,4 +1,5 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
+
 import Image from "next/image";
 import NextLink from "next/link";
 import { Link } from "@heroui/link";
@@ -13,10 +14,7 @@ import {
   getMinPrice,
   getAvailableVariantCount,
 } from "@/lib/shopify";
-import {
-  getRecommendations,
-  RecommendedProduct,
-} from "@/lib/recommendations";
+import { getRecommendations, RecommendedProduct } from "@/lib/recommendations";
 import { ShopifyProduct } from "@/types";
 
 interface ProductDetailProps {
@@ -38,7 +36,7 @@ export default function ProductDetailPage({
 
   // Group options for display
   const displayOptions = product.options?.filter(
-    (o) => o.name.toLowerCase() !== "title" && o.values[0] !== "Default Title"
+    (o) => o.name.toLowerCase() !== "title" && o.values[0] !== "Default Title",
   );
 
   return (
@@ -51,20 +49,20 @@ export default function ProductDetailPage({
 
       {/* Breadcrumb */}
       <nav className="pt-6 pb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-default-400">
-        <NextLink href="/" className="hover:text-primary transition-colors">
+        <NextLink className="hover:text-primary transition-colors" href="/">
           Home
         </NextLink>
         <span>/</span>
         <NextLink
-          href="/products"
           className="hover:text-primary transition-colors"
+          href="/products"
         >
           Products
         </NextLink>
         <span>/</span>
         <NextLink
-          href={`/products?category=${categoryHandle}`}
           className="hover:text-primary transition-colors"
+          href={`/products?category=${categoryHandle}`}
         >
           {categoryLabel}
         </NextLink>
@@ -79,12 +77,12 @@ export default function ProductDetailPage({
           <div className="relative aspect-square overflow-hidden border border-divider bg-stone-50">
             {img ? (
               <Image
-                src={img}
-                alt={product.title}
                 fill
+                priority
+                alt={product.title}
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
-                priority
+                src={img}
               />
             ) : (
               <div className="flex h-full items-center justify-center text-default-200 text-8xl">
@@ -99,12 +97,12 @@ export default function ProductDetailPage({
             <div className="flex items-center gap-3">
               <Chip
                 as={NextLink}
-                href={`/products?category=${categoryHandle}`}
                 className="text-[10px] font-semibold uppercase tracking-widest cursor-pointer"
                 color="primary"
+                href={`/products?category=${categoryHandle}`}
                 radius="none"
-                variant="bordered"
                 size="sm"
+                variant="bordered"
               >
                 {categoryLabel}
               </Chip>
@@ -164,32 +162,32 @@ export default function ProductDetailPage({
             {/* Description */}
             {product.body_html && (
               <div
-                className="text-sm text-default-500 leading-relaxed prose prose-sm max-w-none border-t border-divider pt-4 [&_ul]:list-disc [&_ul]:pl-4 [&_li]:mb-1"
                 dangerouslySetInnerHTML={{ __html: product.body_html }}
+                className="text-sm text-default-500 leading-relaxed prose prose-sm max-w-none border-t border-divider pt-4 [&_ul]:list-disc [&_ul]:pl-4 [&_li]:mb-1"
               />
             )}
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-3 pt-2 border-t border-divider">
               <Button
-                as={Link}
                 isExternal
-                href={siteConfig.links.contact}
+                as={Link}
+                className="font-semibold uppercase tracking-wider flex-1"
                 color="primary"
+                href={siteConfig.links.contact}
                 radius="none"
                 size="lg"
-                className="font-semibold uppercase tracking-wider flex-1"
               >
                 Get a Quote
               </Button>
               <Button
-                as={Link}
                 isExternal
+                as={Link}
+                className="font-semibold uppercase tracking-wider flex-1 border-default-400 text-foreground hover:border-primary hover:text-primary"
                 href={siteConfig.links.store}
                 radius="none"
                 size="lg"
                 variant="bordered"
-                className="font-semibold uppercase tracking-wider flex-1 border-default-400 text-foreground hover:border-primary hover:text-primary"
               >
                 View on Store
               </Button>
@@ -216,11 +214,12 @@ export default function ProductDetailPage({
             {recommendations.map((rec) => {
               const recImg = rec.images[0]?.src;
               const recPrice = getMinPrice(rec);
+
               return (
                 <NextLink
                   key={rec.id}
-                  href={`/products/${rec.handle}`}
                   className="group flex flex-col"
+                  href={`/products/${rec.handle}`}
                 >
                   {/* Bundle label */}
                   <div className="mb-1.5">
@@ -232,11 +231,11 @@ export default function ProductDetailPage({
                   <div className="relative aspect-square overflow-hidden border border-divider bg-stone-50 transition-colors group-hover:border-primary">
                     {recImg ? (
                       <Image
-                        src={recImg}
-                        alt={rec.title}
                         fill
+                        alt={rec.title}
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 17vw"
+                        src={recImg}
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center text-default-200 text-4xl">
@@ -300,6 +299,7 @@ export const getStaticProps: GetStaticProps<ProductDetailProps> = async ({
 
   for (const cat of categories) {
     const found = cat.products.find((p) => p.handle === handle);
+
     if (found) {
       product = found;
       categoryHandle = cat.handle;
@@ -313,7 +313,7 @@ export const getStaticProps: GetStaticProps<ProductDetailProps> = async ({
   const recommendations = getRecommendations(
     product,
     categoryHandle,
-    categories
+    categories,
   );
 
   return {

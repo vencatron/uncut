@@ -1,4 +1,5 @@
 import type { GetStaticProps } from "next";
+
 import Image from "next/image";
 import NextLink from "next/link";
 import { Link } from "@heroui/link";
@@ -83,8 +84,8 @@ export default function IndexPage({ categories }: HomePageProps) {
             Shop All Products
           </Button>
           <Button
-            as={Link}
             isExternal
+            as={Link}
             className="border-default-400 px-8 font-semibold uppercase tracking-wider text-foreground hover:border-primary hover:text-primary"
             href={siteConfig.links.contact}
             radius="none"
@@ -106,8 +107,8 @@ export default function IndexPage({ categories }: HomePageProps) {
             </span>
           </h2>
           <Link
-            href="/products"
             className="text-sm font-semibold uppercase tracking-wider text-primary hidden sm:block"
+            href="/products"
           >
             View All →
           </Link>
@@ -119,17 +120,17 @@ export default function IndexPage({ categories }: HomePageProps) {
             return (
               <NextLink
                 key={cat.handle}
-                href={`/products?category=${cat.handle}`}
                 className="group block"
+                href={`/products?category=${cat.handle}`}
               >
                 <div className="relative aspect-[3/4] overflow-hidden border border-divider transition-colors group-hover:border-primary bg-stone-100">
                   {img ? (
                     <Image
-                      src={img}
-                      alt={cat.label}
                       fill
+                      alt={cat.label}
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                      src={img}
                     />
                   ) : null}
                   {/* Gradient overlay */}
@@ -151,8 +152,8 @@ export default function IndexPage({ categories }: HomePageProps) {
         </div>
         <div className="mt-4 text-center sm:hidden">
           <Link
-            href="/products"
             className="text-sm font-semibold uppercase tracking-wider text-primary"
+            href="/products"
           >
             View All Products →
           </Link>
@@ -169,8 +170,8 @@ export default function IndexPage({ categories }: HomePageProps) {
             </span>
           </h2>
           <Link
-            href="/products"
             className="text-sm font-semibold uppercase tracking-wider text-primary hidden sm:block"
+            href="/products"
           >
             Full Catalog →
           </Link>
@@ -179,16 +180,21 @@ export default function IndexPage({ categories }: HomePageProps) {
           {featuredProducts.map((product) => {
             const img = product.images[0]?.src;
             const price = getMinPrice(product);
+
             return (
-              <NextLink key={product.id} href={`/products/${product.handle}`} className="group block">
+              <NextLink
+                key={product.id}
+                className="group block"
+                href={`/products/${product.handle}`}
+              >
                 <div className="relative aspect-square overflow-hidden border border-divider bg-stone-50 transition-colors group-hover:border-primary">
                   {img ? (
                     <Image
-                      src={img}
-                      alt={product.title}
                       fill
+                      alt={product.title}
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                      src={img}
                     />
                   ) : (
                     <div className="flex h-full items-center justify-center text-default-200 text-5xl">
@@ -213,11 +219,11 @@ export default function IndexPage({ categories }: HomePageProps) {
         <div className="mt-10 text-center">
           <Button
             as={Link}
-            href="/products"
+            className="px-10 font-semibold uppercase tracking-wider"
             color="primary"
+            href="/products"
             radius="none"
             variant="bordered"
-            className="px-10 font-semibold uppercase tracking-wider"
           >
             Browse Full Catalog
           </Button>
@@ -255,13 +261,13 @@ export default function IndexPage({ categories }: HomePageProps) {
             operation — fast.
           </p>
           <Button
-            as={Link}
             isExternal
-            href={siteConfig.links.contact}
+            as={Link}
+            className="px-12 font-semibold uppercase tracking-widest"
             color="primary"
+            href={siteConfig.links.contact}
             radius="none"
             size="lg"
-            className="px-12 font-semibold uppercase tracking-widest"
           >
             Contact Us
           </Button>
@@ -273,6 +279,7 @@ export default function IndexPage({ categories }: HomePageProps) {
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   const categories = await getAllCategorizedProducts();
+
   return {
     props: { categories },
     revalidate: 3600,

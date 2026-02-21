@@ -28,12 +28,12 @@ export const Navbar = () => {
         <NavbarBrand className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center" href="/">
             <Image
-              src="/UncutLogo_776x.webp"
-              alt="Uncut Packaging"
-              width={120}
-              height={48}
-              className="object-contain dark:invert"
               priority
+              alt="Uncut Packaging"
+              className="object-contain dark:invert"
+              height={48}
+              src="/UncutLogo_776x.webp"
+              width={120}
             />
           </NextLink>
         </NavbarBrand>
@@ -64,10 +64,10 @@ export const Navbar = () => {
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
+            isExternal
             as={Link}
             className="text-sm font-semibold tracking-wide uppercase"
             color="primary"
-            isExternal
             href={siteConfig.links.contact}
             radius="none"
             variant="solid"
@@ -103,10 +103,10 @@ export const Navbar = () => {
         </div>
         <div className="mt-6 px-2">
           <Button
+            isExternal
             as={Link}
             className="w-full font-semibold tracking-wide uppercase text-base"
             color="primary"
-            isExternal
             href={siteConfig.links.contact}
             radius="none"
             size="lg"
