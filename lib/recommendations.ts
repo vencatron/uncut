@@ -39,7 +39,7 @@ export function getRecommendations(
   currentProduct: ShopifyProduct,
   currentCategoryHandle: string,
   categories: ProductCollection[],
-  maxCount = 6
+  maxCount = 6,
 ): RecommendedProduct[] {
   const bundles = BUNDLE_MAP[currentCategoryHandle] ?? [];
   const recommendations: RecommendedProduct[] = [];
@@ -47,9 +47,11 @@ export function getRecommendations(
 
   for (const bundle of bundles) {
     const cat = categories.find((c) => c.handle === bundle.handle);
+
     if (!cat) continue;
 
     let picked = 0;
+
     for (const p of cat.products) {
       if (seen.has(p.id)) continue;
       seen.add(p.id);
