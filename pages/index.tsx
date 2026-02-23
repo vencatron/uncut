@@ -63,7 +63,7 @@ export default function IndexPage({ categories }: HomePageProps) {
           <h1 className={title({ fullWidth: true, size: "xl" })}>
             <span className={title({ size: "xl" })}>Protect Your Team.</span>
             <br />
-            <span className={title({ color: "slate", size: "xl" })}>
+            <span className={title({ color: "steel", size: "xl" })}>
               Ship with Confidence.
             </span>
           </h1>
@@ -102,7 +102,7 @@ export default function IndexPage({ categories }: HomePageProps) {
         <div className="mb-8 flex items-end justify-between">
           <h2 className={title({ size: "md" })}>
             <span className={title({ size: "md" })}>Shop by </span>
-            <span className={title({ color: "slate", size: "md" })}>
+            <span className={title({ color: "steel", size: "md" })}>
               Category
             </span>
           </h2>
@@ -252,7 +252,7 @@ export default function IndexPage({ categories }: HomePageProps) {
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
           <h2 className={title({ size: "md" })}>
             <span className={title({ size: "md" })}>Ready to </span>
-            <span className={title({ color: "slate", size: "md" })}>
+            <span className={title({ color: "steel", size: "md" })}>
               Place an Order?
             </span>
           </h2>
