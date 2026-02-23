@@ -86,14 +86,14 @@ export default function AboutPage() {
               things in stock.
             </p>
             <p>
-              Over time, we&apos;ve built real partnerships with brands we
-              trust — Safety Zone, SHOWA, and QSPAC — because we&apos;re not
+              Over time, we&apos;ve built real partnerships with brands we trust
+              — Safety Zone, SHOWA, and QSPAC — because we&apos;re not
               interested in selling you something we can&apos;t stand behind.
               Today we serve schools, medical clinics, warehouses,
-              manufacturers, and small businesses across Southern California.
-              We keep our inventory deep so you can order in bulk, get fair
-              pricing, and move on with your day. No runaround, no waiting on
-              a callback that never comes.
+              manufacturers, and small businesses across Southern California. We
+              keep our inventory deep so you can order in bulk, get fair
+              pricing, and move on with your day. No runaround, no waiting on a
+              callback that never comes.
             </p>
           </div>
         </div>
@@ -144,8 +144,8 @@ export default function AboutPage() {
             </h2>
             <p className="mt-4 text-default-500 text-base leading-relaxed max-w-sm">
               From single-location clinics to multi-site operations, we supply
-              organizations across Southern California that can&apos;t afford
-              to run out.
+              organizations across Southern California that can&apos;t afford to
+              run out.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -178,13 +178,13 @@ export default function AboutPage() {
             right quantity for what your operation actually needs.
           </p>
           <Button
-            as={Link}
             isExternal
-            href={siteConfig.links.contact}
+            as={Link}
+            className="px-12 font-semibold uppercase tracking-widest"
             color="primary"
+            href={siteConfig.links.contact}
             radius="none"
             size="lg"
-            className="px-12 font-semibold uppercase tracking-widest"
           >
             Get in Touch
           </Button>

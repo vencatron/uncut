@@ -1,55 +1,46 @@
-# Next.js & HeroUI Template
+# Uncut Packaging
 
-This is a template for creating applications using Next.js 14 (pages directory) and HeroUI (v2).
+Product catalog and company website for Uncut Packaging — a family-owned PPE and packaging supplies distributor based in Claremont, California.
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/next-pages-template)
+## Tech Stack
 
-> Note: Since Next.js 14, the pages router is recommend migrating to the [new App Router](https://nextjs.org/docs/app) to leverage React's latest features
->
-> Read more: [Pages Router](https://nextjs.org/docs/pages)
-
-## Technologies Used
-
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [HeroUI](https://heroui.com)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
+- [Next.js 15](https://nextjs.org/) (Pages Router)
+- [HeroUI](https://heroui.com) component library
+- [Tailwind CSS 4](https://tailwindcss.com)
 - [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+- Shopify Storefront API (product data)
 
-## How to Use
-
-To create a new project based on this template using `create-next-app`, run the following command:
-
-```bash
-npx create-next-app -e https://github.com/heroui-inc/next-pages-template
-```
-
-### Install dependencies
-
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+## Development
 
 ```bash
 npm install
-```
-
-### Run the development server
-
-```bash
 npm run dev
 ```
 
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+## Build
 
 ```bash
-public-hoist-pattern[]=*@heroui/*
+npm run build
+npm start
 ```
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+## Project Structure
+
+```
+├── components/     # Reusable UI components
+├── config/         # Site configuration and fonts
+├── layouts/        # Page layouts (default, head)
+├── lib/            # API clients and utilities
+├── pages/          # Next.js pages
+├── public/         # Static assets
+├── styles/         # Global styles
+└── types/          # TypeScript type definitions
+```
+
+## Data Source
+
+Product data is fetched from the Shopify store at `uncutpackaging.com` using the public Products JSON API. Data is statically generated at build time with ISR (revalidation every hour).
 
 ## License
 
-Licensed under the [MIT license](https://github.com/heroui-inc/next-pages-template/blob/main/LICENSE).
+Licensed under the [MIT license](./LICENSE).

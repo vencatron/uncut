@@ -2,6 +2,7 @@ import { Link } from "@heroui/link";
 import { Divider } from "@heroui/divider";
 
 import { Head } from "./head";
+
 import { Navbar } from "@/components/navbar";
 import { siteConfig } from "@/config/site";
 
@@ -71,7 +72,8 @@ export default function DefaultLayout({
           <Divider className="my-8" />
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-default-400 text-xs">
-              © {new Date().getFullYear()} Uncut Packaging. All rights reserved.
+              © {new Date().getFullYear()} Uncut Packaging. All rights
+              reserved.
             </p>
           </div>
         </div>
