@@ -1,55 +1,54 @@
-# Next.js & HeroUI Template
+# Uncut Packaging
 
-This is a template for creating applications using Next.js 14 (pages directory) and HeroUI (v2).
+Marketing site for [Uncut Packaging](https://uncutpackaging.com) — your trusted source for PPE, protective equipment, and packaging supplies.
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/next-pages-template)
+## Overview
 
-> Note: Since Next.js 14, the pages router is recommend migrating to the [new App Router](https://nextjs.org/docs/app) to leverage React's latest features
->
-> Read more: [Pages Router](https://nextjs.org/docs/pages)
+This site showcases products from the Uncut Packaging Shopify store with a custom-designed frontend. Product data is fetched directly from the Shopify API and cached via ISR.
 
-## Technologies Used
+## Tech Stack
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [HeroUI](https://heroui.com)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
+- [Next.js 15](https://nextjs.org/) (Pages Router)
+- [HeroUI v2](https://heroui.com) (component library)
+- [Tailwind CSS v4](https://tailwindcss.com)
 - [TypeScript](https://www.typescriptlang.org)
 - [Framer Motion](https://www.framer.com/motion)
-- [next-themes](https://github.com/pacocoursey/next-themes)
 
-## How to Use
-
-To create a new project based on this template using `create-next-app`, run the following command:
+## Development
 
 ```bash
-npx create-next-app -e https://github.com/heroui-inc/next-pages-template
-```
-
-### Install dependencies
-
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
-
-```bash
+# Install dependencies
 npm install
-```
 
-### Run the development server
-
-```bash
+# Run development server
 npm run dev
+
+# Build for production
+npm run build
+
+# Run linter
+npm run lint
 ```
 
-### Setup pnpm (optional)
+## Project Structure
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@heroui/*
+```
+├── components/     # Reusable UI components
+├── config/         # Site configuration and fonts
+├── layouts/        # Page layout wrappers
+├── lib/            # Data fetching and utilities
+├── pages/          # Next.js pages
+├── public/         # Static assets
+├── styles/         # Global CSS
+└── types/          # TypeScript types
 ```
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+## Data Source
+
+Product data is fetched from the Shopify JSON API at `uncutpackaging.com`:
+- Collections: aprons-gowns-coats, foot-protection, gloves, head-eye, tape
+- Pages are regenerated every hour (ISR with 3600s revalidate)
 
 ## License
 
-Licensed under the [MIT license](https://github.com/heroui-inc/next-pages-template/blob/main/LICENSE).
+MIT
