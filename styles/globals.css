@@ -6,6 +6,22 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Force HeroUI primary to slate/grey — overrides default orange in case the plugin doesn't load */
+:root {
+  --heroui-primary-50: 210 40% 96.08%;
+  --heroui-primary-100: 214.29 31.82% 91.37%;
+  --heroui-primary-200: 212.73 26.83% 83.92%;
+  --heroui-primary-300: 215 20.22% 65.1%;
+  --heroui-primary-400: 215.38 16.32% 46.86%;
+  --heroui-primary-500: 215.29 19.32% 34.51%;
+  --heroui-primary-600: 215.29 25% 26.67%;
+  --heroui-primary-700: 217.24 32.58% 17.45%;
+  --heroui-primary-800: 222.22 47.37% 11.18%;
+  --heroui-primary-900: 228.57 84% 4.9%;
+  --heroui-primary: 217.24 32.58% 17.45%;
+  --heroui-primary-foreground: 0 0% 100%;
+}
+
 @theme {
     --font-sans: var(--font-sans), "Space Grotesk", sans-serif;
     --font-mono: var(--font-mono), "Fira Code", monospace;
