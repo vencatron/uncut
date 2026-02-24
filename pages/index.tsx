@@ -42,11 +42,11 @@ export default function IndexPage({ categories }: HomePageProps) {
   return (
     <DefaultLayout>
       {/* Background */}
-      <div aria-hidden className="fixed inset-0 -z-20 bg-[#FAFAF9]" />
+      <div aria-hidden className="fixed inset-0 -z-20 bg-[#FAFAFA]" />
       <div aria-hidden className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute -top-32 -right-32 h-[600px] w-[600px] rounded-full bg-orange-200 opacity-25 blur-[140px]" />
-        <div className="absolute top-1/2 -left-48 h-[500px] w-[500px] rounded-full bg-amber-100 opacity-30 blur-[120px]" />
-        <div className="absolute bottom-0 left-1/3 h-[350px] w-[350px] rounded-full bg-stone-200 opacity-25 blur-[100px]" />
+        <div className="absolute -top-32 -right-32 h-[600px] w-[600px] rounded-full bg-slate-300 opacity-20 blur-[140px]" />
+        <div className="absolute top-1/2 -left-48 h-[500px] w-[500px] rounded-full bg-zinc-200 opacity-25 blur-[120px]" />
+        <div className="absolute bottom-0 left-1/3 h-[350px] w-[350px] rounded-full bg-slate-200 opacity-20 blur-[100px]" />
       </div>
 
       {/* Hero */}
@@ -63,7 +63,7 @@ export default function IndexPage({ categories }: HomePageProps) {
           <h1 className={title({ fullWidth: true, size: "xl" })}>
             <span className={title({ size: "xl" })}>Protect Your Team.</span>
             <br />
-            <span className={title({ color: "orange", size: "xl" })}>
+            <span className={title({ color: "steel", size: "xl" })}>
               Ship with Confidence.
             </span>
           </h1>
@@ -92,7 +92,7 @@ export default function IndexPage({ categories }: HomePageProps) {
             size="lg"
             variant="bordered"
           >
-            Get a Quote
+            Bulk Order Quote
           </Button>
         </div>
       </section>
@@ -102,7 +102,7 @@ export default function IndexPage({ categories }: HomePageProps) {
         <div className="mb-8 flex items-end justify-between">
           <h2 className={title({ size: "md" })}>
             <span className={title({ size: "md" })}>Shop by </span>
-            <span className={title({ color: "orange", size: "md" })}>
+            <span className={title({ color: "steel", size: "md" })}>
               Category
             </span>
           </h2>
@@ -113,7 +113,7 @@ export default function IndexPage({ categories }: HomePageProps) {
             View All →
           </Link>
         </div>
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-5">
           {categories.map((cat) => {
             const img = cat.products[0]?.images[0]?.src;
 
@@ -123,7 +123,7 @@ export default function IndexPage({ categories }: HomePageProps) {
                 className="group block"
                 href={`/products?category=${cat.handle}`}
               >
-                <div className="relative aspect-[3/4] overflow-hidden border border-divider transition-colors group-hover:border-primary bg-stone-100">
+                <div className="relative aspect-[3/4] overflow-hidden border-2 border-foreground/20 transition-all duration-300 group-hover:border-primary group-hover:shadow-lg bg-zinc-100">
                   {img ? (
                     <Image
                       fill
@@ -134,13 +134,13 @@ export default function IndexPage({ categories }: HomePageProps) {
                     />
                   ) : null}
                   {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   {/* Text */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <p className="font-bold text-white text-sm uppercase tracking-wide leading-tight">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                    <p className="font-extrabold text-white text-base uppercase tracking-wider leading-tight">
                       {cat.label}
                     </p>
-                    <p className="text-white/60 text-xs mt-0.5">
+                    <p className="text-white/70 text-xs mt-1 font-medium">
                       {cat.products.length} product
                       {cat.products.length !== 1 ? "s" : ""}
                     </p>
@@ -165,7 +165,7 @@ export default function IndexPage({ categories }: HomePageProps) {
         <div className="mb-8 flex items-end justify-between">
           <h2 className={title({ size: "md" })}>
             <span className={title({ size: "md" })}>Featured </span>
-            <span className={title({ color: "fire", size: "md" })}>
+            <span className={title({ color: "gunmetal", size: "md" })}>
               Products
             </span>
           </h2>
@@ -187,7 +187,7 @@ export default function IndexPage({ categories }: HomePageProps) {
                 className="group block"
                 href={`/products/${product.handle}`}
               >
-                <div className="relative aspect-square overflow-hidden border border-divider bg-stone-50 transition-colors group-hover:border-primary">
+                <div className="relative aspect-square overflow-hidden border border-divider bg-zinc-50 transition-colors group-hover:border-primary">
                   {img ? (
                     <Image
                       fill
@@ -252,7 +252,7 @@ export default function IndexPage({ categories }: HomePageProps) {
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
           <h2 className={title({ size: "md" })}>
             <span className={title({ size: "md" })}>Ready to </span>
-            <span className={title({ color: "orange", size: "md" })}>
+            <span className={title({ color: "steel", size: "md" })}>
               Place an Order?
             </span>
           </h2>
