@@ -102,7 +102,7 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
           </Chip>
           <h1 className={title({ size: "lg", fullWidth: true })}>
             <span className={title({ size: "lg" })}>Our </span>
-            <span className={title({ color: "slate", size: "lg" })}>
+            <span className={title({ color: "steel", size: "lg" })}>
               Products
             </span>
           </h1>

@@ -165,7 +165,7 @@ export default function IndexPage({ categories }: HomePageProps) {
         <div className="mb-8 flex items-end justify-between">
           <h2 className={title({ size: "md" })}>
             <span className={title({ size: "md" })}>Featured </span>
-            <span className={title({ color: "gunmetal", size: "md" })}>
+            <span className={title({ color: "charcoal", size: "md" })}>
               Products
             </span>
           </h2>
