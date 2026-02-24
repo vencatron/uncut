@@ -14,15 +14,6 @@ async function safeFetch<T>(url: string, fallback: T): Promise<T> {
   }
 }
 
-export async function getAllProducts(): Promise<ShopifyProduct[]> {
-  const data = await safeFetch<{ products: ShopifyProduct[] }>(
-    `${STORE_URL}/products.json?limit=250`,
-    { products: [] },
-  );
-
-  return data.products;
-}
-
 export async function getCollectionProducts(
   handle: string,
 ): Promise<ShopifyProduct[]> {
