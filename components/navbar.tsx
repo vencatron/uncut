@@ -31,9 +31,9 @@ export const Navbar = () => {
               priority
               alt="Uncut Packaging"
               className="object-contain dark:invert"
-              height={48}
+              height={64}
               src="/UncutLogo_776x.webp"
-              width={120}
+              width={160}
             />
           </NextLink>
         </NavbarBrand>

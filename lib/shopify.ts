@@ -14,13 +14,17 @@ async function safeFetch<T>(url: string, fallback: T): Promise<T> {
   }
 }
 
+function mapProductsImages(products: ShopifyProduct[]): ShopifyProduct[] {
+  return products;
+}
+
 export async function getAllProducts(): Promise<ShopifyProduct[]> {
   const data = await safeFetch<{ products: ShopifyProduct[] }>(
     `${STORE_URL}/products.json?limit=250`,
     { products: [] },
   );
 
-  return data.products;
+  return mapProductsImages(data.products);
 }
 
 export async function getCollectionProducts(
@@ -31,7 +35,7 @@ export async function getCollectionProducts(
     { products: [] },
   );
 
-  return data.products;
+  return mapProductsImages(data.products);
 }
 
 export const COLLECTIONS: {

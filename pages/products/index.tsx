@@ -84,9 +84,9 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
   return (
     <DefaultLayout>
       {/* Background */}
-      <div aria-hidden className="fixed inset-0 -z-20 bg-[#FAFAF9]" />
+      <div aria-hidden className="fixed inset-0 -z-20 bg-[#FAFAFA]" />
       <div aria-hidden className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute -top-32 -right-32 h-[500px] w-[500px] rounded-full bg-orange-100 opacity-20 blur-[140px]" />
+        <div className="absolute -top-32 -right-32 h-[500px] w-[500px] rounded-full bg-slate-300 opacity-15 blur-[140px]" />
       </div>
 
       <section className="py-12 md:py-16">
@@ -102,7 +102,7 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
           </Chip>
           <h1 className={title({ size: "lg", fullWidth: true })}>
             <span className={title({ size: "lg" })}>Our </span>
-            <span className={title({ color: "orange", size: "lg" })}>
+            <span className={title({ color: "steel", size: "lg" })}>
               Products
             </span>
           </h1>
@@ -163,7 +163,7 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
                   href={`/products/${product.handle}`}
                 >
                   {/* Image */}
-                  <div className="relative aspect-square overflow-hidden border border-divider bg-stone-50 transition-colors group-hover:border-primary">
+                  <div className="relative aspect-square overflow-hidden border border-divider bg-zinc-50 transition-colors group-hover:border-primary">
                     {img ? (
                       <Image
                         fill
@@ -245,7 +245,7 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
             radius="none"
             size="lg"
           >
-            Get a Quote
+            Bulk Order Quote
           </Button>
         </div>
       </section>
