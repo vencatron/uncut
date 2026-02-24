@@ -53,17 +53,17 @@ export default function IndexPage({ categories }: HomePageProps) {
       <section className="relative flex flex-col items-center justify-center gap-6 py-16 text-center md:py-24 overflow-hidden">
         {/* Background video */}
         <video
+          aria-hidden
           autoPlay
           loop
           muted
           playsInline
-          aria-hidden
           className="absolute inset-0 h-full w-full object-cover"
         >
           <source src="/uncut-packaging-v7.mp4" type="video/mp4" />
         </video>
         {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-black/50" aria-hidden />
+        <div aria-hidden className="absolute inset-0 bg-black/50" />
 
         {/* Content */}
         <Chip
@@ -76,13 +76,19 @@ export default function IndexPage({ categories }: HomePageProps) {
         </Chip>
         <div className="relative z-10 inline-block max-w-4xl">
           <h1 className={title({ fullWidth: true, size: "xl" })}>
-            <span className={`${title({ size: "xl" })} text-white`}>Protect Your Team.</span>
+            <span className={`${title({ size: "xl" })} text-white`}>
+              Protect Your Team.
+            </span>
             <br />
             <span className={title({ color: "steel", size: "xl" })}>
               Ship with Confidence.
             </span>
           </h1>
-          <p className={subtitle({ class: "mx-auto mt-6 text-center text-white/80" })}>
+          <p
+            className={subtitle({
+              class: "mx-auto mt-6 text-center text-white/80",
+            })}
+          >
             Gloves, gowns, coveralls, tape, and more — everything your operation
             needs, sourced and ready to ship.
           </p>

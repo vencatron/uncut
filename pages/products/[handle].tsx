@@ -9,6 +9,7 @@ import { Chip } from "@heroui/chip";
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { siteConfig } from "@/config/site";
+import { sanitizeHtml } from "@/lib/sanitize";
 import {
   getAllCategorizedProducts,
   getMinPrice,
@@ -162,7 +163,9 @@ export default function ProductDetailPage({
             {/* Description */}
             {product.body_html && (
               <div
-                dangerouslySetInnerHTML={{ __html: product.body_html }}
+                dangerouslySetInnerHTML={{
+                  __html: sanitizeHtml(product.body_html),
+                }}
                 className="text-sm text-default-500 leading-relaxed prose prose-sm max-w-none border-t border-divider pt-4 [&_ul]:list-disc [&_ul]:pl-4 [&_li]:mb-1"
               />
             )}

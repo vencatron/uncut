@@ -22,26 +22,16 @@ const compat = new FlatCompat({
 });
 
 export default defineConfig([globalIgnores([
-    ".now/*",
     "**/*.css",
-    "**/.changeset",
     "**/dist",
-    "esm/*",
-    "public/*",
-    "tests/*",
-    "scripts/*",
+    "**/public",
     "**/*.config.js",
     "**/.DS_Store",
     "**/node_modules",
     "**/coverage",
     "**/.next",
     "**/build",
-    "!**/.commitlintrc.cjs",
-    "!**/.lintstagedrc.cjs",
-    "!**/jest.config.js",
-    "!**/plopfile.js",
-    "!**/react-shim.js",
-    "!**/tsup.config.ts",
+    "**/.vercel",
 ]), {
     extends: fixupConfigRules(compat.extends(
         "plugin:react/recommended",
