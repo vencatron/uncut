@@ -4,11 +4,11 @@ export const title = tv({
   base: "tracking-tight inline font-bold",
   variants: {
     color: {
-      orange: "from-[#F97316] to-[#EA580C]",
-      amber: "from-[#F59E0B] to-[#D97706]",
+      silver: "from-[#64748B] to-[#334155]",
+      mist: "from-[#94A3B8] to-[#475569]",
       steel: "from-[#9CA3AF] to-[#6B7280]",
       charcoal: "from-[#6B7280] to-[#374151]",
-      fire: "from-[#F97316] to-[#DC2626]",
+      fire: "from-[#475569] to-[#1E293B]",
       stone: "from-[#A8A29E] to-[#78716C]",
       foreground:
         "dark:from-[#FFFFFF] dark:to-[#A8A29E] from-[#1C1917] to-[#44403C]",
@@ -29,8 +29,8 @@ export const title = tv({
   compoundVariants: [
     {
       color: [
-        "orange",
-        "amber",
+        "silver",
+        "mist",
         "steel",
         "charcoal",
         "fire",

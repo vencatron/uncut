@@ -44,7 +44,7 @@ export default function ProductDetailPage({
       {/* Background */}
       <div aria-hidden className="fixed inset-0 -z-20 bg-[#FAFAF9]" />
       <div aria-hidden className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute -top-32 -right-32 h-[500px] w-[500px] rounded-full bg-orange-100 opacity-20 blur-[140px]" />
+        <div className="absolute -top-32 -right-32 h-[500px] w-[500px] rounded-full bg-zinc-300 opacity-20 blur-[140px]" />
       </div>
 
       {/* Breadcrumb */}
@@ -202,7 +202,7 @@ export default function ProductDetailPage({
           <div className="mb-8">
             <h2 className={title({ size: "md", fullWidth: true })}>
               <span className={title({ size: "md" })}>Frequently </span>
-              <span className={title({ color: "orange", size: "md" })}>
+              <span className={title({ color: "steel", size: "md" })}>
                 Bought Together
               </span>
             </h2>

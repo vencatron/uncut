@@ -39,8 +39,8 @@ export default function AboutPage() {
       {/* Background */}
       <div aria-hidden className="fixed inset-0 -z-20 bg-[#FAFAF9]" />
       <div aria-hidden className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute -top-32 -left-32 h-[500px] w-[500px] rounded-full bg-orange-100 opacity-20 blur-[140px]" />
-        <div className="absolute bottom-1/3 -right-48 h-[400px] w-[400px] rounded-full bg-amber-100 opacity-25 blur-[120px]" />
+        <div className="absolute -top-32 -left-32 h-[500px] w-[500px] rounded-full bg-zinc-300 opacity-20 blur-[140px]" />
+        <div className="absolute bottom-1/3 -right-48 h-[400px] w-[400px] rounded-full bg-slate-200 opacity-25 blur-[120px]" />
       </div>
 
       {/* Hero */}
@@ -56,7 +56,7 @@ export default function AboutPage() {
         <div className="max-w-3xl">
           <h1 className={title({ size: "lg", fullWidth: true })}>
             <span className={title({ size: "lg" })}>Built on trust, </span>
-            <span className={title({ color: "orange", size: "lg" })}>
+            <span className={title({ color: "steel", size: "lg" })}>
               delivered fast.
             </span>
           </h1>
@@ -112,7 +112,7 @@ export default function AboutPage() {
           </Chip>
           <h2 className={title({ size: "md", fullWidth: true })}>
             <span className={title({ size: "md" })}>The same every time, </span>
-            <span className={title({ color: "orange", size: "md" })}>
+            <span className={title({ color: "steel", size: "md" })}>
               every order.
             </span>
           </h2>
@@ -138,7 +138,7 @@ export default function AboutPage() {
           <div>
             <h2 className={title({ size: "md", fullWidth: true })}>
               Who We{" "}
-              <span className={title({ color: "orange", size: "md" })}>
+              <span className={title({ color: "steel", size: "md" })}>
                 Work With
               </span>
             </h2>
@@ -169,7 +169,7 @@ export default function AboutPage() {
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
           <h2 className={title({ size: "md" })}>
             <span className={title({ size: "md" })}>Ready to stock up? </span>
-            <span className={title({ color: "orange", size: "md" })}>
+            <span className={title({ color: "steel", size: "md" })}>
               Let&apos;s talk.
             </span>
           </h2>
