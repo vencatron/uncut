@@ -1,7 +1,7 @@
 /**
- * Basic HTML sanitization for untrusted content.
- * Removes script tags, event handlers, and dangerous protocols.
- * For production use with truly untrusted content, consider DOMPurify.
+ * HTML sanitization for semi-trusted content (e.g., Shopify product descriptions).
+ * Removes script tags, event handlers, dangerous protocols, and risky elements.
+ * For fully untrusted user input, use DOMPurify instead.
  */
 export function sanitizeHtml(html: string): string {
   if (!html) return "";
@@ -10,14 +10,27 @@ export function sanitizeHtml(html: string): string {
     html
       // Remove script tags and their contents
       .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+      // Remove style tags (can contain expressions in legacy IE)
+      .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, "")
       // Remove event handlers (onclick, onerror, onload, etc.)
       .replace(/\s+on\w+\s*=\s*["'][^"']*["']/gi, "")
       .replace(/\s+on\w+\s*=\s*[^\s>]+/gi, "")
-      // Remove javascript: and data: protocols in href/src
-      .replace(/\s+(href|src)\s*=\s*["']?\s*javascript:[^"'\s>]*/gi, "")
-      .replace(/\s+(href|src)\s*=\s*["']?\s*data:[^"'\s>]*/gi, "")
-      // Remove iframe, object, embed tags
-      .replace(/<(iframe|object|embed|form|input)[^>]*>/gi, "")
-      .replace(/<\/(iframe|object|embed|form|input)>/gi, "")
+      // Remove javascript:, data:, and vbscript: protocols in href/src
+      .replace(
+        /\s+(href|src)\s*=\s*["']?\s*(javascript|data|vbscript):[^"'\s>]*/gi,
+        "",
+      )
+      // Remove style attributes (can contain expression() in legacy IE)
+      .replace(/\s+style\s*=\s*["'][^"']*["']/gi, "")
+      .replace(/\s+style\s*=\s*[^\s>]+/gi, "")
+      // Remove dangerous tags
+      .replace(
+        /<(iframe|object|embed|form|input|base|link|meta|svg|math)[^>]*>/gi,
+        "",
+      )
+      .replace(
+        /<\/(iframe|object|embed|form|input|base|link|meta|svg|math)>/gi,
+        "",
+      )
   );
 }

@@ -40,7 +40,7 @@ export default function IndexPage({ categories }: HomePageProps) {
     .slice(0, 8);
 
   return (
-    <DefaultLayout>
+    <DefaultLayout description={siteConfig.description}>
       {/* Background */}
       <div aria-hidden className="fixed inset-0 -z-20 bg-[#FAFAFA]" />
       <div aria-hidden className="fixed inset-0 -z-10 pointer-events-none">

@@ -2,16 +2,29 @@ import NextHead from "next/head";
 
 import { siteConfig } from "@/config/site";
 
-export const Head = () => {
+interface HeadProps {
+  title?: string;
+  description?: string;
+}
+
+export const Head = ({ title, description }: HeadProps) => {
+  const pageTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
+  const pageDescription = description || siteConfig.description;
+
   return (
     <NextHead>
-      <title>{siteConfig.name}</title>
-      <meta key="title" content={siteConfig.name} property="og:title" />
-      <meta content={siteConfig.description} property="og:description" />
-      <meta content={siteConfig.description} name="description" />
+      <title>{pageTitle}</title>
+      <meta key="title" content={pageTitle} property="og:title" />
+      <meta key="og:type" content="website" property="og:type" />
+      <meta
+        key="description"
+        content={pageDescription}
+        property="og:description"
+      />
+      <meta content={pageDescription} name="description" />
       <meta
         key="viewport"
-        content="viewport-fit=cover, width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
         name="viewport"
       />
       <link href="/favicon.ico" rel="icon" />

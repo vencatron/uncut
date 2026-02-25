@@ -41,7 +41,10 @@ export default function ProductDetailPage({
   );
 
   return (
-    <DefaultLayout>
+    <DefaultLayout
+      description={`Shop ${product.title} from ${product.vendor || "Uncut Packaging"}. ${categoryLabel} and PPE supplies.`}
+      title={product.title}
+    >
       {/* Background */}
       <div aria-hidden className="fixed inset-0 -z-20 bg-[#FAFAF9]" />
       <div aria-hidden className="fixed inset-0 -z-10 pointer-events-none">
