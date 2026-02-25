@@ -35,7 +35,10 @@ const whoWeServe = [
 
 export default function AboutPage() {
   return (
-    <DefaultLayout>
+    <DefaultLayout
+      description="Learn about Uncut Packaging — a family-owned business in Claremont, CA providing PPE and packaging supplies to businesses across Southern California."
+      title="About Us"
+    >
       {/* Background */}
       <div aria-hidden className="fixed inset-0 -z-20 bg-[#FAFAF9]" />
       <div aria-hidden className="fixed inset-0 -z-10 pointer-events-none">

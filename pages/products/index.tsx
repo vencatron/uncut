@@ -82,7 +82,10 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
   );
 
   return (
-    <DefaultLayout>
+    <DefaultLayout
+      description="Browse our full catalog of PPE, protective equipment, and packaging supplies. Gloves, gowns, tape, and more."
+      title="Products"
+    >
       {/* Background */}
       <div aria-hidden className="fixed inset-0 -z-20 bg-[#FAFAFA]" />
       <div aria-hidden className="fixed inset-0 -z-10 pointer-events-none">

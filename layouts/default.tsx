@@ -6,14 +6,20 @@ import { Head } from "./head";
 import { Navbar } from "@/components/navbar";
 import { siteConfig } from "@/config/site";
 
+interface DefaultLayoutProps {
+  children: React.ReactNode;
+  title?: string;
+  description?: string;
+}
+
 export default function DefaultLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  title,
+  description,
+}: DefaultLayoutProps) {
   return (
     <div className="relative flex flex-col min-h-screen">
-      <Head />
+      <Head description={description} title={title} />
       <Navbar />
       <main className="container mx-auto max-w-7xl px-6 flex-grow pt-16">
         {children}
