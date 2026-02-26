@@ -84,15 +84,11 @@ export const Navbar = () => {
 
       <NavbarMenu className="bg-background/95 backdrop-blur-md pt-4 pb-8">
         <div className="flex flex-col gap-1 mt-2">
-          {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
+          {siteConfig.navMenuItems.map((item) => (
+            <NavbarMenuItem key={item.href}>
               <Link
                 className="w-full py-4 px-2 font-semibold tracking-wide uppercase text-base border-b border-divider"
-                color={
-                  index === siteConfig.navMenuItems.length - 1
-                    ? "primary"
-                    : "foreground"
-                }
+                color={item.href.startsWith("http") ? "primary" : "foreground"}
                 href={item.href}
                 size="lg"
               >
