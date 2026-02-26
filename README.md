@@ -46,7 +46,7 @@ npm run lint
 ## Data Source
 
 Product data is fetched from the Shopify JSON API at `uncutpackaging.com`:
-- Collections: aprons-gowns-coats, foot-protection, gloves, head-eye, tape
+- Collections: aprons-gowns-coats, foot-protection, gloves, head-eye, tape, ribbon, labels
 - Pages are regenerated every hour (ISR with 3600s revalidate)
 
 ## License
