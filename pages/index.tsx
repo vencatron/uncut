@@ -45,6 +45,7 @@ const FEATURED_MIX: { handle: string; count: number }[] = [
 export default function IndexPage({ categories }: HomePageProps) {
   const featuredProducts = FEATURED_MIX.flatMap(({ handle, count }) => {
     const cat = categories.find((c) => c.handle === handle);
+
     return cat?.products.slice(0, count) ?? [];
   });
 
