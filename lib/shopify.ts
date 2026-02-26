@@ -58,6 +58,18 @@ export const COLLECTIONS: {
     description:
       "Acrylic, hot melt, filament, electrical, masking, and specialty tapes.",
   },
+  {
+    handle: "ribbon",
+    label: "TTR Ribbon",
+    description:
+      "Thermal transfer ribbons for barcode printing — wax, wax-resin, and full resin.",
+  },
+  {
+    handle: "labels",
+    label: "Labels",
+    description:
+      "Thermal, direct thermal, and pressure-sensitive labels in a range of sizes.",
+  },
 ];
 
 export async function getAllCategorizedProducts(): Promise<

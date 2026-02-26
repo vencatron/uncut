@@ -34,10 +34,19 @@ interface HomePageProps {
   categories: ProductCollection[];
 }
 
+const FEATURED_MIX: { handle: string; count: number }[] = [
+  { handle: "tape", count: 2 },
+  { handle: "ribbon", count: 2 },
+  { handle: "labels", count: 2 },
+  { handle: "gloves", count: 1 },
+  { handle: "aprons-gowns-coats", count: 1 },
+];
+
 export default function IndexPage({ categories }: HomePageProps) {
-  const featuredProducts = categories
-    .flatMap((cat) => cat.products.slice(0, 2))
-    .slice(0, 8);
+  const featuredProducts = FEATURED_MIX.flatMap(({ handle, count }) => {
+    const cat = categories.find((c) => c.handle === handle);
+    return cat?.products.slice(0, count) ?? [];
+  });
 
   return (
     <DefaultLayout description={siteConfig.description}>
