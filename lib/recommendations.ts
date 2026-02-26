@@ -24,8 +24,18 @@ const BUNDLE_MAP: Record<string, { handle: string; label: string }[]> = {
   ],
   tape: [
     { handle: "tape", label: "Other tape types" },
-    { handle: "gloves", label: "Handle with protection" },
-    { handle: "aprons-gowns-coats", label: "Bundle with PPE" },
+    { handle: "labels", label: "Complete your labeling setup" },
+    { handle: "ribbon", label: "Add thermal transfer ribbon" },
+  ],
+  ribbon: [
+    { handle: "labels", label: "Pair with labels" },
+    { handle: "tape", label: "Add packaging tape" },
+    { handle: "ribbon", label: "Other ribbon types" },
+  ],
+  labels: [
+    { handle: "ribbon", label: "Pair with TTR ribbon" },
+    { handle: "tape", label: "Add packaging tape" },
+    { handle: "labels", label: "Other label sizes" },
   ],
 };
 
