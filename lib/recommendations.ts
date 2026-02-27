@@ -1,4 +1,6 @@
-import { ShopifyProduct, ProductCollection } from "@/types";
+import { slimProduct } from "./shopify";
+
+import { ProductCollection, SlimProduct } from "@/types";
 
 // Maps each category to complementary categories and a human-readable bundle reason
 const BUNDLE_MAP: Record<string, { handle: string; label: string }[]> = {
@@ -39,21 +41,21 @@ const BUNDLE_MAP: Record<string, { handle: string; label: string }[]> = {
   ],
 };
 
-export interface RecommendedProduct extends ShopifyProduct {
+export interface RecommendedProduct extends SlimProduct {
   categoryHandle: string;
   categoryLabel: string;
   bundleLabel: string;
 }
 
 export function getRecommendations(
-  currentProduct: ShopifyProduct,
+  currentProductId: number,
   currentCategoryHandle: string,
   categories: ProductCollection[],
   maxCount = 6,
 ): RecommendedProduct[] {
   const bundles = BUNDLE_MAP[currentCategoryHandle] ?? [];
   const recommendations: RecommendedProduct[] = [];
-  const seen = new Set<number>([currentProduct.id]);
+  const seen = new Set<number>([currentProductId]);
 
   for (const bundle of bundles) {
     const cat = categories.find((c) => c.handle === bundle.handle);
@@ -66,7 +68,7 @@ export function getRecommendations(
       if (seen.has(p.id)) continue;
       seen.add(p.id);
       recommendations.push({
-        ...p,
+        ...slimProduct(p),
         categoryHandle: cat.handle,
         categoryLabel: cat.label,
         bundleLabel: bundle.label,

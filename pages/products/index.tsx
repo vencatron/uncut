@@ -13,17 +13,16 @@ import DefaultLayout from "@/layouts/default";
 import { siteConfig } from "@/config/site";
 import {
   getAllCategorizedProducts,
+  slimCollection,
   COLLECTIONS,
-  getMinPrice,
-  getAvailableVariantCount,
 } from "@/lib/shopify";
-import { ProductCollection, ShopifyProduct } from "@/types";
+import { SlimProduct, SlimProductCollection } from "@/types";
 
 interface ProductsPageProps {
-  categories: ProductCollection[];
+  categories: SlimProductCollection[];
 }
 
-interface DisplayProduct extends ShopifyProduct {
+interface DisplayProduct extends SlimProduct {
   categoryHandle: string;
   categoryLabel: string;
 }
@@ -154,71 +153,65 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
         {/* Grid */}
         {displayedProducts.length > 0 ? (
           <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {displayedProducts.map((product) => {
-              const img = product.images[0]?.src;
-              const price = getMinPrice(product);
-              const variantCount = getAvailableVariantCount(product);
-
-              return (
-                <NextLink
-                  key={product.id}
-                  className="group flex flex-col"
-                  href={`/products/${product.handle}`}
-                >
-                  {/* Image */}
-                  <div className="relative aspect-square overflow-hidden border border-divider bg-zinc-50 transition-colors group-hover:border-primary">
-                    {img ? (
-                      <Image
-                        fill
-                        alt={product.title}
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                        src={img}
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-default-200 text-5xl">
-                        ◆
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Info */}
-                  <div className="pt-3 px-0.5 flex flex-col gap-1 flex-1">
-                    {/* Category badge */}
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-default-400">
-                      {product.categoryLabel}
-                    </p>
-                    {/* Name */}
-                    <p className="text-xs font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
-                      {product.title}
-                    </p>
-                    {/* Vendor */}
-                    {product.vendor && (
-                      <p className="text-[10px] text-default-400 uppercase tracking-wide">
-                        {product.vendor}
-                      </p>
-                    )}
-                    {/* Price + variants */}
-                    <div className="mt-auto pt-2 flex items-center justify-between">
-                      {price ? (
-                        <span className="text-sm font-bold text-primary">
-                          From {price}
-                        </span>
-                      ) : (
-                        <span className="text-xs text-default-400">
-                          Contact for pricing
-                        </span>
-                      )}
-                      {variantCount > 1 && (
-                        <span className="text-[10px] text-default-400 tabular-nums">
-                          {variantCount} options
-                        </span>
-                      )}
+            {displayedProducts.map((product) => (
+              <NextLink
+                key={product.id}
+                className="group flex flex-col"
+                href={`/products/${product.handle}`}
+              >
+                {/* Image */}
+                <div className="relative aspect-square overflow-hidden border border-divider bg-zinc-50 transition-colors group-hover:border-primary">
+                  {product.imageSrc ? (
+                    <Image
+                      fill
+                      alt={product.title}
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                      src={product.imageSrc}
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-default-200 text-5xl">
+                      ◆
                     </div>
+                  )}
+                </div>
+
+                {/* Info */}
+                <div className="pt-3 px-0.5 flex flex-col gap-1 flex-1">
+                  {/* Category badge */}
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-default-400">
+                    {product.categoryLabel}
+                  </p>
+                  {/* Name */}
+                  <p className="text-xs font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
+                    {product.title}
+                  </p>
+                  {/* Vendor */}
+                  {product.vendor && (
+                    <p className="text-[10px] text-default-400 uppercase tracking-wide">
+                      {product.vendor}
+                    </p>
+                  )}
+                  {/* Price + variants */}
+                  <div className="mt-auto pt-2 flex items-center justify-between">
+                    {product.minPrice ? (
+                      <span className="text-sm font-bold text-primary">
+                        From {product.minPrice}
+                      </span>
+                    ) : (
+                      <span className="text-xs text-default-400">
+                        Contact for pricing
+                      </span>
+                    )}
+                    {product.variantCount > 1 && (
+                      <span className="text-[10px] text-default-400 tabular-nums">
+                        {product.variantCount} options
+                      </span>
+                    )}
                   </div>
-                </NextLink>
-              );
-            })}
+                </div>
+              </NextLink>
+            ))}
           </div>
         ) : (
           <div className="py-24 text-center">
@@ -257,7 +250,8 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
 }
 
 export const getStaticProps: GetStaticProps<ProductsPageProps> = async () => {
-  const categories = await getAllCategorizedProducts();
+  const fullCategories = await getAllCategorizedProducts();
+  const categories = fullCategories.map(slimCollection);
 
   return {
     props: { categories },

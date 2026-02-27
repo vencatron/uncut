@@ -9,8 +9,8 @@ import { Chip } from "@heroui/chip";
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { siteConfig } from "@/config/site";
-import { getAllCategorizedProducts, getMinPrice } from "@/lib/shopify";
-import { ProductCollection } from "@/types";
+import { getAllCategorizedProducts, slimCollection } from "@/lib/shopify";
+import { SlimProductCollection } from "@/types";
 
 const trustSignals = [
   {
@@ -31,7 +31,7 @@ const trustSignals = [
 ];
 
 interface HomePageProps {
-  categories: ProductCollection[];
+  categories: SlimProductCollection[];
 }
 
 const FEATURED_MIX: { handle: string; count: number }[] = [
@@ -146,7 +146,7 @@ export default function IndexPage({ categories }: HomePageProps) {
         </div>
         <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-5">
           {categories.map((cat) => {
-            const img = cat.products[0]?.images[0]?.src;
+            const img = cat.products[0]?.imageSrc;
 
             return (
               <NextLink
@@ -208,44 +208,39 @@ export default function IndexPage({ categories }: HomePageProps) {
           </Link>
         </div>
         <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {featuredProducts.map((product) => {
-            const img = product.images[0]?.src;
-            const price = getMinPrice(product);
-
-            return (
-              <NextLink
-                key={product.id}
-                className="group block"
-                href={`/products/${product.handle}`}
-              >
-                <div className="relative aspect-square overflow-hidden border border-divider bg-zinc-50 transition-colors group-hover:border-primary">
-                  {img ? (
-                    <Image
-                      fill
-                      alt={product.title}
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      src={img}
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-default-200 text-5xl">
-                      ◆
-                    </div>
-                  )}
-                </div>
-                <div className="pt-3 px-0.5">
-                  <p className="text-xs font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
-                    {product.title}
+          {featuredProducts.map((product) => (
+            <NextLink
+              key={product.id}
+              className="group block"
+              href={`/products/${product.handle}`}
+            >
+              <div className="relative aspect-square overflow-hidden border border-divider bg-zinc-50 transition-colors group-hover:border-primary">
+                {product.imageSrc ? (
+                  <Image
+                    fill
+                    alt={product.title}
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    src={product.imageSrc}
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center text-default-200 text-5xl">
+                    ◆
+                  </div>
+                )}
+              </div>
+              <div className="pt-3 px-0.5">
+                <p className="text-xs font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
+                  {product.title}
+                </p>
+                {product.minPrice && (
+                  <p className="text-primary font-bold text-sm mt-1">
+                    From {product.minPrice}
                   </p>
-                  {price && (
-                    <p className="text-primary font-bold text-sm mt-1">
-                      From {price}
-                    </p>
-                  )}
-                </div>
-              </NextLink>
-            );
-          })}
+                )}
+              </div>
+            </NextLink>
+          ))}
         </div>
         <div className="mt-10 text-center">
           <Button
@@ -309,7 +304,8 @@ export default function IndexPage({ categories }: HomePageProps) {
 }
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
-  const categories = await getAllCategorizedProducts();
+  const fullCategories = await getAllCategorizedProducts();
+  const categories = fullCategories.map(slimCollection);
 
   return {
     props: { categories },

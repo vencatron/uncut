@@ -47,3 +47,23 @@ export interface ProductCollection {
   label: string;
   products: ShopifyProduct[];
 }
+
+/**
+ * Slim product for listing pages - contains only display-essential fields.
+ * Reduces SSG page data from ~500KB to ~50KB.
+ */
+export interface SlimProduct {
+  id: number;
+  title: string;
+  handle: string;
+  vendor: string;
+  imageSrc: string | null;
+  minPrice: string | null;
+  variantCount: number;
+}
+
+export interface SlimProductCollection {
+  handle: string;
+  label: string;
+  products: SlimProduct[];
+}

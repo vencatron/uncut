@@ -217,55 +217,50 @@ export default function ProductDetailPage({
             </p>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {recommendations.map((rec) => {
-              const recImg = rec.images[0]?.src;
-              const recPrice = getMinPrice(rec);
-
-              return (
-                <NextLink
-                  key={rec.id}
-                  className="group flex flex-col"
-                  href={`/products/${rec.handle}`}
-                >
-                  {/* Bundle label */}
-                  <div className="mb-1.5">
-                    <span className="text-[9px] font-bold uppercase tracking-widest text-primary">
-                      {rec.bundleLabel}
-                    </span>
-                  </div>
-                  {/* Image */}
-                  <div className="relative aspect-square overflow-hidden border border-divider bg-stone-50 transition-colors group-hover:border-primary">
-                    {recImg ? (
-                      <Image
-                        fill
-                        alt={rec.title}
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 17vw"
-                        src={recImg}
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-default-200 text-4xl">
-                        ◆
-                      </div>
-                    )}
-                  </div>
-                  {/* Info */}
-                  <div className="pt-2 px-0.5 flex flex-col gap-0.5">
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-default-400">
-                      {rec.categoryLabel}
+            {recommendations.map((rec) => (
+              <NextLink
+                key={rec.id}
+                className="group flex flex-col"
+                href={`/products/${rec.handle}`}
+              >
+                {/* Bundle label */}
+                <div className="mb-1.5">
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-primary">
+                    {rec.bundleLabel}
+                  </span>
+                </div>
+                {/* Image */}
+                <div className="relative aspect-square overflow-hidden border border-divider bg-stone-50 transition-colors group-hover:border-primary">
+                  {rec.imageSrc ? (
+                    <Image
+                      fill
+                      alt={rec.title}
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 17vw"
+                      src={rec.imageSrc}
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-default-200 text-4xl">
+                      ◆
+                    </div>
+                  )}
+                </div>
+                {/* Info */}
+                <div className="pt-2 px-0.5 flex flex-col gap-0.5">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-default-400">
+                    {rec.categoryLabel}
+                  </p>
+                  <p className="text-xs font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
+                    {rec.title}
+                  </p>
+                  {rec.minPrice && (
+                    <p className="text-xs font-bold text-primary mt-0.5">
+                      From {rec.minPrice}
                     </p>
-                    <p className="text-xs font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
-                      {rec.title}
-                    </p>
-                    {recPrice && (
-                      <p className="text-xs font-bold text-primary mt-0.5">
-                        From {recPrice}
-                      </p>
-                    )}
-                  </div>
-                </NextLink>
-              );
-            })}
+                  )}
+                </div>
+              </NextLink>
+            ))}
           </div>
         </section>
       )}
@@ -317,7 +312,7 @@ export const getStaticProps: GetStaticProps<ProductDetailProps> = async ({
   if (!product) return { notFound: true };
 
   const recommendations = getRecommendations(
-    product,
+    product.id,
     categoryHandle,
     categories,
   );
