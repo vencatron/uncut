@@ -1,6 +1,50 @@
-import { ShopifyProduct, ProductCollection } from "@/types";
+import {
+  ShopifyProduct,
+  ProductCollection,
+  SlimProduct,
+  SlimProductCollection,
+} from "@/types";
 
 const STORE_URL = "https://uncutpackaging.com";
+
+/**
+ * Creates a slim version of a product for listing pages.
+ * Strips body_html, extra images, and variant details to reduce page data size.
+ */
+export function slimProduct(product: ShopifyProduct): SlimProduct {
+  const firstImage = product.images[0];
+  const availableVariants = product.variants.filter((v) => v.available);
+  const prices = availableVariants
+    .map((v) => parseFloat(v.price))
+    .filter((p) => p > 0);
+  const minPrice = prices.length ? Math.min(...prices) : null;
+
+  return {
+    id: product.id,
+    title: product.title,
+    handle: product.handle,
+    vendor: product.vendor,
+    imageSrc: firstImage?.src ?? null,
+    minPrice:
+      minPrice !== null
+        ? `$${minPrice % 1 === 0 ? minPrice.toFixed(0) : minPrice.toFixed(2)}`
+        : null,
+    variantCount: availableVariants.length,
+  };
+}
+
+/**
+ * Creates slim product collections for listing pages.
+ */
+export function slimCollection(
+  collection: ProductCollection,
+): SlimProductCollection {
+  return {
+    handle: collection.handle,
+    label: collection.label,
+    products: collection.products.map(slimProduct),
+  };
+}
 
 async function safeFetch<T>(url: string, fallback: T): Promise<T> {
   try {
