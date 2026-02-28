@@ -89,8 +89,8 @@ export function sanitizeHtml(html: string): string {
         // Skip disallowed attributes
         if (allowedAttrs && !allowedAttrs.has(attrName)) continue;
 
-        // Validate URL attributes
-        if (attrName === "href" || attrName === "src") {
+        // Validate href attribute on anchors
+        if (attrName === "href" && tagLower === "a") {
           // Decode HTML entities to catch encoded XSS
           const decoded = attrValue
             .replace(/&#x([0-9a-f]+);?/gi, (_, hex) =>
@@ -103,11 +103,9 @@ export function sanitizeHtml(html: string): string {
           if (UNSAFE_PROTOCOL.test(decoded)) continue;
 
           // Force external links to have safe rel
-          if (attrName === "href" && tagLower === "a") {
-            safeAttrs.push(`href="${attrValue.replace(/"/g, "&quot;")}"`);
-            safeAttrs.push('rel="noopener noreferrer"');
-            continue;
-          }
+          safeAttrs.push(`href="${attrValue.replace(/"/g, "&quot;")}"`);
+          safeAttrs.push('rel="noopener noreferrer"');
+          continue;
         }
 
         safeAttrs.push(`${attrName}="${attrValue.replace(/"/g, "&quot;")}"`);
