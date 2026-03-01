@@ -24,6 +24,7 @@ const ALLOWED_TAGS = new Set([
   "span",
   "div",
   "a",
+  "img",
   "table",
   "thead",
   "tbody",
@@ -38,9 +39,13 @@ const ALLOWED_TAGS = new Set([
 
 const ALLOWED_ATTRS: Record<string, Set<string>> = {
   a: new Set(["href", "title", "target", "rel"]),
+  img: new Set(["src", "alt", "width", "height"]),
   td: new Set(["colspan", "rowspan"]),
   th: new Set(["colspan", "rowspan", "scope"]),
 };
+
+// Safe URL protocols for src/href attributes
+const SAFE_URL_PROTOCOL = /^(https?:\/\/|\/)/i;
 
 // Dangerous URL protocols
 const UNSAFE_PROTOCOL = /^\s*(javascript|data|vbscript):/i;
@@ -83,28 +88,39 @@ export function sanitizeHtml(html: string): string {
         const attrName = attrMatch[1].toLowerCase();
         const attrValue = attrMatch[2] ?? attrMatch[3] ?? attrMatch[4] ?? "";
 
-        // Skip event handlers
+        // Skip event handlers (onclick, onerror, etc.)
         if (attrName.startsWith("on")) continue;
 
-        // Skip disallowed attributes
-        if (allowedAttrs && !allowedAttrs.has(attrName)) continue;
+        // Skip attributes not explicitly allowed for this tag
+        // If tag has no entry in ALLOWED_ATTRS, no attributes are allowed
+        if (!allowedAttrs || !allowedAttrs.has(attrName)) continue;
+
+        // Decode HTML entities to catch encoded XSS
+        const decoded = attrValue
+          .replace(/&#x([0-9a-f]+);?/gi, (_, hex) =>
+            String.fromCharCode(parseInt(hex, 16)),
+          )
+          .replace(/&#(\d+);?/g, (_, dec) =>
+            String.fromCharCode(parseInt(dec, 10)),
+          );
 
         // Validate href attribute on anchors
         if (attrName === "href" && tagLower === "a") {
-          // Decode HTML entities to catch encoded XSS
-          const decoded = attrValue
-            .replace(/&#x([0-9a-f]+);?/gi, (_, hex) =>
-              String.fromCharCode(parseInt(hex, 16)),
-            )
-            .replace(/&#(\d+);?/g, (_, dec) =>
-              String.fromCharCode(parseInt(dec, 10)),
-            );
-
           if (UNSAFE_PROTOCOL.test(decoded)) continue;
 
           // Force external links to have safe rel
           safeAttrs.push(`href="${attrValue.replace(/"/g, "&quot;")}"`);
           safeAttrs.push('rel="noopener noreferrer"');
+          continue;
+        }
+
+        // Validate src attribute on images
+        if (attrName === "src" && tagLower === "img") {
+          // Only allow http(s) URLs or relative paths
+          if (!SAFE_URL_PROTOCOL.test(decoded)) continue;
+          if (UNSAFE_PROTOCOL.test(decoded)) continue;
+
+          safeAttrs.push(`src="${attrValue.replace(/"/g, "&quot;")}"`);
           continue;
         }
 
