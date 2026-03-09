@@ -11,6 +11,7 @@ import DefaultLayout from "@/layouts/default";
 import { siteConfig } from "@/config/site";
 import { getAllCategorizedProducts, slimCollection } from "@/lib/shopify";
 import { SlimProductCollection } from "@/types";
+import { CategoryGrid } from "@/components/CategoryGrid";
 
 const trustSignals = [
   {
@@ -144,43 +145,7 @@ export default function IndexPage({ categories }: HomePageProps) {
             View All →
           </Link>
         </div>
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-5">
-          {categories.map((cat) => {
-            const img = cat.products[0]?.imageSrc;
-
-            return (
-              <NextLink
-                key={cat.handle}
-                className="group block"
-                href={`/products?category=${cat.handle}`}
-              >
-                <div className="relative aspect-[3/4] overflow-hidden border-2 border-foreground/20 transition-all duration-300 group-hover:border-primary group-hover:shadow-lg bg-zinc-100">
-                  {img ? (
-                    <Image
-                      fill
-                      alt={cat.label}
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                      src={img}
-                    />
-                  ) : null}
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                  {/* Text */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                    <p className="font-extrabold text-white text-base uppercase tracking-wider leading-tight">
-                      {cat.label}
-                    </p>
-                    <p className="text-white/70 text-xs mt-1 font-medium">
-                      {cat.products.length} product
-                      {cat.products.length !== 1 ? "s" : ""}
-                    </p>
-                  </div>
-                </div>
-              </NextLink>
-            );
-          })}
-        </div>
+        <CategoryGrid />
         <div className="mt-4 text-center sm:hidden">
           <Link
             className="text-sm font-semibold uppercase tracking-wider text-primary"
