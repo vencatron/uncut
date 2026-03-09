@@ -5,7 +5,7 @@ import {
   SlimProductCollection,
 } from "@/types";
 
-const STORE_URL = "https://uncutpackaging.com";
+const STORE_URL = "https://uncut-packaging.myshopify.com";
 
 /**
  * Creates a slim version of a product for listing pages.
