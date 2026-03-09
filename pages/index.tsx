@@ -36,9 +36,7 @@ interface HomePageProps {
 }
 
 const FEATURED_MIX: { handle: string; count: number }[] = [
-  { handle: "tape", count: 2 },
-  { handle: "ribbon", count: 2 },
-  { handle: "labels", count: 2 },
+  { handle: "tape", count: 1 },
   { handle: "gloves", count: 1 },
   { handle: "aprons-gowns-coats", count: 1 },
 ];
@@ -51,15 +49,31 @@ const FEATURED_IMAGE_OVERRIDES: Record<string, string> = {
   gloves: "/featured/gloves-hero.jpg",
 };
 
-export default function IndexPage({ categories }: HomePageProps) {
-  const featuredProducts = FEATURED_MIX.flatMap(({ handle, count }) => {
-    const cat = categories.find((c) => c.handle === handle);
+// Pinned items always appear first, regardless of Shopify collection data
+const PINNED_FEATURED = [
+  {
+    id: "pinned-labels",
+    title: "Stock Labels",
+    handle: "labels",
+    vendor: "",
+    imageSrc: "/featured/labels-box.jpg",
+    minPrice: null,
+    variantCount: 0,
+  },
+];
 
-    return (cat?.products.slice(0, count) ?? []).map((p) => ({
-      ...p,
-      imageSrc: FEATURED_IMAGE_OVERRIDES[handle] ?? p.imageSrc,
-    }));
-  });
+export default function IndexPage({ categories }: HomePageProps) {
+  const featuredProducts = [
+    ...PINNED_FEATURED,
+    ...FEATURED_MIX.flatMap(({ handle, count }) => {
+      const cat = categories.find((c) => c.handle === handle);
+
+      return (cat?.products.slice(0, count) ?? []).map((p) => ({
+        ...p,
+        imageSrc: FEATURED_IMAGE_OVERRIDES[handle] ?? p.imageSrc,
+      }));
+    }),
+  ];
 
   return (
     <DefaultLayout description={siteConfig.description}>
