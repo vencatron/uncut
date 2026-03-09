@@ -43,11 +43,21 @@ const FEATURED_MIX: { handle: string; count: number }[] = [
   { handle: "aprons-gowns-coats", count: 1 },
 ];
 
+// High-quality scraped images override Shopify product photos per category
+const FEATURED_IMAGE_OVERRIDES: Record<string, string> = {
+  labels: "/featured/labels-banner.jpg",
+  ribbon: "/featured/ribbon-product.jpg",
+  gloves: "/featured/gloves-hero.jpg",
+};
+
 export default function IndexPage({ categories }: HomePageProps) {
   const featuredProducts = FEATURED_MIX.flatMap(({ handle, count }) => {
     const cat = categories.find((c) => c.handle === handle);
 
-    return cat?.products.slice(0, count) ?? [];
+    return (cat?.products.slice(0, count) ?? []).map((p) => ({
+      ...p,
+      imageSrc: FEATURED_IMAGE_OVERRIDES[handle] ?? p.imageSrc,
+    }));
   });
 
   return (
