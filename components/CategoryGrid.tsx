@@ -7,7 +7,8 @@ function TapeIcon() {
     <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
       <style>{`
         @keyframes tape-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .tape-roll { transform-origin: 40px 40px; animation: tape-spin 6s linear infinite; }
+        .tape-roll { transform-origin: 40px 40px; animation: tape-spin 6s linear infinite; animation-play-state: paused; }
+        .category-tile:hover .tape-roll { animation-play-state: running; }
       `}</style>
       <g className="tape-roll">
         {/* Outer ring */}
@@ -37,7 +38,8 @@ function ShrinkFilmIcon() {
     <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
       <style>{`
         @keyframes film-pulse { 0%,100% { opacity:1; transform:scaleX(1); } 50% { opacity:0.7; transform:scaleX(1.04); } }
-        .film-wrap { transform-origin:40px 40px; animation: film-pulse 3s ease-in-out infinite; }
+        .film-wrap { transform-origin:40px 40px; animation: film-pulse 3s ease-in-out infinite; animation-play-state: paused; }
+        .category-tile:hover .film-wrap { animation-play-state: running; }
       `}</style>
       {/* Pallet base */}
       <rect x="12" y="62" width="56" height="8" rx="1" fill="#1a1a1a" opacity="0.8"/>
@@ -66,7 +68,8 @@ function LabelsIcon() {
           0%,70%,100% { transform: translateY(0); }
           85% { transform: translateY(-4px); }
         }
-        .label-top { transform-origin: 40px 20px; animation: label-peel 3.5s ease-in-out infinite; }
+        .label-top { transform-origin: 40px 20px; animation: label-peel 3.5s ease-in-out infinite; animation-play-state: paused; }
+        .category-tile:hover .label-top { animation-play-state: running; }
       `}</style>
       {/* Shadow sheets */}
       <rect x="20" y="22" width="44" height="52" rx="2" fill="#1a1a1a" opacity="0.12"/>
@@ -94,8 +97,9 @@ function JanitorialIcon() {
           0%,100% { transform: rotate(-8deg); }
           50% { transform: rotate(8deg); }
         }
-        .broom { transform-origin: 30px 12px; animation: sweep 2.5s ease-in-out infinite; }
-        .brush { transform-origin: 52px 12px; animation: sweep 2.5s ease-in-out infinite reverse; }
+        .broom { transform-origin: 30px 12px; animation: sweep 2.5s ease-in-out infinite; animation-play-state: paused; }
+        .brush { transform-origin: 52px 12px; animation: sweep 2.5s ease-in-out infinite reverse; animation-play-state: paused; }
+        .category-tile:hover .broom, .category-tile:hover .brush { animation-play-state: running; }
       `}</style>
       {/* Broom */}
       <g className="broom">
@@ -126,7 +130,8 @@ function RibbonIcon() {
     <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
       <style>{`
         @keyframes ribbon-spin { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
-        .ribbon-roll { transform-origin: 40px 44px; animation: ribbon-spin 8s linear infinite; }
+        .ribbon-roll { transform-origin: 40px 44px; animation: ribbon-spin 8s linear infinite; animation-play-state: paused; }
+        .category-tile:hover .ribbon-roll { animation-play-state: running; }
       `}</style>
       <g className="ribbon-roll">
         {/* Outer ring - wider/flatter like ribbon spool */}
@@ -164,8 +169,9 @@ function PPEIcon() {
           30% { transform: rotate(-6deg); }
           60% { transform: rotate(4deg); }
         }
-        .shield { animation: ppe-glow 3s ease-in-out infinite; }
-        .glove { transform-origin: 55px 55px; animation: glove-wave 3s ease-in-out infinite; }
+        .shield { animation: ppe-glow 3s ease-in-out infinite; animation-play-state: paused; }
+        .glove { transform-origin: 55px 55px; animation: glove-wave 3s ease-in-out infinite; animation-play-state: paused; }
+        .category-tile:hover .shield, .category-tile:hover .glove { animation-play-state: running; }
       `}</style>
       {/* Face shield */}
       <g className="shield">
@@ -252,6 +258,7 @@ export function CategoryGrid() {
         >
           <div
             className="
+              category-tile
               flex items-center gap-5 rounded-xl p-5
               bg-gradient-to-br from-zinc-100 to-zinc-200
               border border-zinc-300
