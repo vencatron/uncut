@@ -46,7 +46,7 @@ const FEATURED_MIX: { handle: string; count: number }[] = [
 // High-quality scraped images override Shopify product photos per category
 const FEATURED_IMAGE_OVERRIDES: Record<string, string> = {
   tape: "/featured/tape-product.jpg",
-  labels: "/featured/labels-product2.jpg",
+  labels: "/featured/labels-box.jpg",
   ribbon: "/featured/ribbon-product.jpg",
   gloves: "/featured/gloves-hero.jpg",
 };
