@@ -11,9 +11,9 @@ const CATEGORIES = [
     icon: "/icons/icon-tape.png",
   },
   {
-    label: "Shrink & Stretch Film",
-    tagline: "Optimize protection. Reduce waste.",
-    handle: "shrink-stretch-film",
+    label: "Aprons & Coats",
+    tagline: "Coveralls, gowns, and coats.",
+    handle: "aprons-gowns-coats",
     icon: "/icons/icon-shrink-film.png",
   },
   {
@@ -23,9 +23,9 @@ const CATEGORIES = [
     icon: "/icons/icon-labels.png",
   },
   {
-    label: "Janitorial Supplies",
-    tagline: "Essential facility cleanliness.",
-    handle: "janitorial-supplies",
+    label: "Foot Protection",
+    tagline: "Shoe covers and boot covers.",
+    handle: "foot-protection",
     icon: "/icons/icon-janitorial.png",
   },
   {
@@ -35,9 +35,9 @@ const CATEGORIES = [
     icon: "/icons/icon-ribbon.png",
   },
   {
-    label: "PPE",
-    tagline: "Team safety. Ensured.",
-    handle: "ppe",
+    label: "Gloves",
+    tagline: "Nitrile, latex, and chemical-resistant.",
+    handle: "gloves",
     icon: "/icons/icon-ppe.png",
   },
 ];
