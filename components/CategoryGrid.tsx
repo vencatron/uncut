@@ -62,6 +62,7 @@ export function CategoryGrid() {
               shadow-sm
               transition-all duration-300
               group-hover:border-primary group-hover:shadow-md group-hover:from-zinc-50 group-hover:to-zinc-150
+              active:scale-[0.98] group-active:border-primary
             "
           >
             {/* Icon */}
@@ -80,7 +81,7 @@ export function CategoryGrid() {
               <p className="font-black text-sm sm:text-base uppercase tracking-wide leading-tight text-foreground">
                 {cat.label}
               </p>
-              <p className="mt-1 text-[11px] sm:text-xs uppercase tracking-wider text-zinc-500 leading-snug">
+              <p className="mt-1 text-xs sm:text-sm uppercase tracking-wider text-zinc-500 leading-snug">
                 {cat.tagline}
               </p>
             </div>

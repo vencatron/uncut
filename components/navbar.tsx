@@ -78,8 +78,7 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent className="lg:hidden basis-1 pl-4" justify="end">
-        <ThemeSwitch />
-        <NavbarMenuToggle className="w-10 h-10" />
+        <NavbarMenuToggle className="w-11 h-11" />
       </NavbarContent>
 
       <NavbarMenu className="bg-background/95 backdrop-blur-md pt-4 pb-8">
