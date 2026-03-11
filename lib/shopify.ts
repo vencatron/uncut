@@ -116,6 +116,24 @@ export const COLLECTIONS: {
   },
 ];
 
+export async function getProductByHandle(handle: string): Promise<ShopifyProduct | null> {
+  const data = await safeFetch<{ product: ShopifyProduct | null }>(
+    `${STORE_URL}/products/${handle}.json`,
+    { product: null },
+  );
+  return data.product;
+}
+
+export async function getCategoryForProduct(productId: number): Promise<{ handle: string; label: string } | null> {
+  for (const col of COLLECTIONS) {
+    const products = await getCollectionProducts(col.handle);
+    if (products.some((p) => p.id === productId)) {
+      return { handle: col.handle, label: col.label };
+    }
+  }
+  return null;
+}
+
 export async function getAllCategorizedProducts(): Promise<
   ProductCollection[]
 > {
