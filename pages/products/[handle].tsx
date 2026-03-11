@@ -52,7 +52,7 @@ export default function ProductDetailPage({
       </div>
 
       {/* Breadcrumb */}
-      <nav className="pt-6 pb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-default-400">
+      <nav className="pt-6 pb-2 flex flex-wrap items-center gap-1 text-xs font-semibold uppercase tracking-wider text-default-400">
         <NextLink className="hover:text-primary transition-colors" href="/">
           Home
         </NextLink>
@@ -71,7 +71,7 @@ export default function ProductDetailPage({
           {categoryLabel}
         </NextLink>
         <span>/</span>
-        <span className="text-foreground line-clamp-1">{product.title}</span>
+        <span className="text-foreground truncate max-w-[120px] sm:max-w-none">{product.title}</span>
       </nav>
 
       {/* Product Detail */}

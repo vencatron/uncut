@@ -21,7 +21,7 @@ export default function DefaultLayout({
     <div className="relative flex flex-col min-h-screen">
       <Head description={description} title={title} />
       <Navbar />
-      <main className="container mx-auto max-w-7xl px-6 flex-grow pt-16">
+      <main className="container mx-auto max-w-7xl px-4 sm:px-6 flex-grow pt-8 sm:pt-12">
         {children}
       </main>
       <footer className="w-full mt-20 border-t border-divider bg-background/90 backdrop-blur-sm">

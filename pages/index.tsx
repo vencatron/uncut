@@ -129,10 +129,10 @@ export default function IndexPage({ categories }: HomePageProps) {
             needs, sourced and ready to ship.
           </p>
         </div>
-        <div className="relative z-10 mt-4 flex flex-wrap justify-center gap-4">
+        <div className="relative z-10 mt-4 flex flex-col sm:flex-row justify-center gap-4 w-full px-4 sm:px-0">
           <Button
             as={Link}
-            className="px-8 font-semibold uppercase tracking-wider"
+            className="w-full sm:w-auto px-8 font-semibold uppercase tracking-wider"
             color="primary"
             href="/products"
             radius="none"
@@ -143,7 +143,7 @@ export default function IndexPage({ categories }: HomePageProps) {
           <Button
             isExternal
             as={Link}
-            className="border-white/60 px-8 font-semibold uppercase tracking-wider text-white hover:border-white hover:text-white"
+            className="w-full sm:w-auto border-white/60 px-8 font-semibold uppercase tracking-wider text-white hover:border-white hover:text-white"
             href={siteConfig.links.contact}
             radius="none"
             size="lg"
