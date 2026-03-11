@@ -53,25 +53,25 @@ export default function ProductDetailPage({
 
       {/* Breadcrumb */}
       <nav className="pt-6 pb-2 flex flex-wrap items-center gap-1 text-xs font-semibold uppercase tracking-wider text-default-400">
-        <NextLink className="hover:text-primary transition-colors" href="/">
+        <NextLink className="hover:text-primary transition-colors py-2 inline-flex items-center" href="/">
           Home
         </NextLink>
         <span>/</span>
         <NextLink
-          className="hover:text-primary transition-colors"
+          className="hover:text-primary transition-colors py-2 inline-flex items-center"
           href="/products"
         >
           Products
         </NextLink>
         <span>/</span>
         <NextLink
-          className="hover:text-primary transition-colors"
+          className="hover:text-primary transition-colors py-2 inline-flex items-center"
           href={`/products?category=${categoryHandle}`}
         >
           {categoryLabel}
         </NextLink>
         <span>/</span>
-        <span className="text-foreground truncate max-w-[120px] sm:max-w-none">{product.title}</span>
+        <span className="text-foreground truncate max-w-[120px] sm:max-w-none py-2 inline-flex items-center">{product.title}</span>
       </nav>
 
       {/* Product Detail */}
@@ -105,7 +105,7 @@ export default function ProductDetailPage({
                 color="primary"
                 href={`/products?category=${categoryHandle}`}
                 radius="none"
-                size="sm"
+                size="md"
                 variant="bordered"
               >
                 {categoryLabel}
@@ -152,7 +152,7 @@ export default function ProductDetailPage({
                       {opt.values.map((val) => (
                         <span
                           key={val}
-                          className="border border-divider px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-foreground"
+                          className="border border-divider px-3 py-2.5 min-h-[44px] inline-flex items-center text-sm font-semibold uppercase tracking-wide text-foreground"
                         >
                           {val}
                         </span>
@@ -225,7 +225,7 @@ export default function ProductDetailPage({
               >
                 {/* Bundle label */}
                 <div className="mb-1.5">
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-primary">
+                  <span className="text-xs font-bold uppercase tracking-widest text-primary">
                     {rec.bundleLabel}
                   </span>
                 </div>
@@ -247,10 +247,10 @@ export default function ProductDetailPage({
                 </div>
                 {/* Info */}
                 <div className="pt-2 px-0.5 flex flex-col gap-0.5">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-default-400">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-default-400">
                     {rec.categoryLabel}
                   </p>
-                  <p className="text-xs font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
+                  <p className="text-sm font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
                     {rec.title}
                   </p>
                   {rec.minPrice && (
