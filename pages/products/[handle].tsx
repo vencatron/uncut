@@ -11,6 +11,7 @@ import DefaultLayout from "@/layouts/default";
 import { siteConfig } from "@/config/site";
 import {
   getAllCategorizedProducts,
+  getProductByHandle,
   getMinPrice,
   getAvailableVariantCount,
 } from "@/lib/shopify";
@@ -293,30 +294,24 @@ export const getStaticProps: GetStaticProps<ProductDetailProps> = async ({
   params,
 }) => {
   const handle = params?.handle as string;
-  const categories = await getAllCategorizedProducts();
 
-  let product: ShopifyProduct | null = null;
+  // Fetch the specific product directly — 1 API call instead of 7
+  const product = await getProductByHandle(handle);
+  if (!product) return { notFound: true };
+
+  // Find which collection this product belongs to — up to 7 calls but stops early
+  const categories = await getAllCategorizedProducts();
   let categoryHandle = "";
   let categoryLabel = "";
-
   for (const cat of categories) {
-    const found = cat.products.find((p) => p.handle === handle);
-
-    if (found) {
-      product = found;
+    if (cat.products.some((p) => p.id === product.id)) {
       categoryHandle = cat.handle;
       categoryLabel = cat.label;
       break;
     }
   }
 
-  if (!product) return { notFound: true };
-
-  const recommendations = getRecommendations(
-    product.id,
-    categoryHandle,
-    categories,
-  );
+  const recommendations = getRecommendations(product.id, categoryHandle, categories);
 
   const { sanitizeHtml } = await import("@/lib/sanitize");
   const sanitizedBodyHtml = product.body_html ? sanitizeHtml(product.body_html) : "";
