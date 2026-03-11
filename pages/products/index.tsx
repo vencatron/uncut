@@ -119,7 +119,7 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
         <div className="-mx-6 px-6 mb-10 border-b border-divider pb-6 overflow-x-auto scrollbar-hide">
           <div className="flex gap-2 min-w-max sm:flex-wrap sm:min-w-0">
             <Button
-              className="text-xs font-bold uppercase tracking-wider shrink-0"
+              className="text-xs font-bold uppercase tracking-wider shrink-0 h-11"
               color={activeCategory === "all" ? "primary" : "default"}
               radius="none"
               size="md"
@@ -136,7 +136,7 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
               return (
                 <Button
                   key={col.handle}
-                  className="text-xs font-bold uppercase tracking-wider shrink-0"
+                  className="text-xs font-bold uppercase tracking-wider shrink-0 h-11"
                   color={isActive ? "primary" : "default"}
                   radius="none"
                   size="md"
@@ -179,16 +179,16 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
                 {/* Info */}
                 <div className="pt-3 px-0.5 flex flex-col gap-1 flex-1">
                   {/* Category badge */}
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-default-400">
+                  <p className="hidden sm:block text-[10px] font-semibold uppercase tracking-widest text-default-400">
                     {product.categoryLabel}
                   </p>
                   {/* Name */}
-                  <p className="text-xs font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
+                  <p className="text-sm font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
                     {product.title}
                   </p>
                   {/* Vendor */}
                   {product.vendor && (
-                    <p className="text-[10px] text-default-400 uppercase tracking-wide">
+                    <p className="hidden sm:block text-xs text-default-400 uppercase tracking-wide">
                       {product.vendor}
                     </p>
                   )}
@@ -199,12 +199,12 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
                         From {product.minPrice}
                       </span>
                     ) : (
-                      <span className="text-xs text-default-400">
+                      <span className="text-sm text-default-400">
                         Contact for pricing
                       </span>
                     )}
                     {product.variantCount > 1 && (
-                      <span className="text-[10px] text-default-400 tabular-nums">
+                      <span className="hidden sm:inline text-xs text-default-400 tabular-nums">
                         {product.variantCount} options
                       </span>
                     )}
