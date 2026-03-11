@@ -86,7 +86,7 @@ export default function IndexPage({ categories }: HomePageProps) {
       </div>
 
       {/* Hero */}
-      <section className="relative flex flex-col items-center justify-center gap-6 py-16 text-center md:py-24 overflow-hidden">
+      <section className="relative flex flex-col items-center justify-center gap-4 sm:gap-6 py-16 text-center md:py-24 overflow-hidden">
         {/* Background video */}
         <video
           aria-hidden
@@ -164,7 +164,7 @@ export default function IndexPage({ categories }: HomePageProps) {
             </span>
           </h2>
           <Link
-            className="text-sm font-semibold uppercase tracking-wider text-primary hidden sm:block"
+            className="text-sm font-semibold uppercase tracking-wider text-primary hidden sm:block py-2 inline-block"
             href="/products"
           >
             View All →
@@ -191,7 +191,7 @@ export default function IndexPage({ categories }: HomePageProps) {
             </span>
           </h2>
           <Link
-            className="text-sm font-semibold uppercase tracking-wider text-primary hidden sm:block"
+            className="text-sm font-semibold uppercase tracking-wider text-primary hidden sm:block py-2 inline-block"
             href="/products"
           >
             Full Catalog →
@@ -204,7 +204,7 @@ export default function IndexPage({ categories }: HomePageProps) {
               className="group block"
               href={`/products/${product.handle}`}
             >
-              <div className="relative aspect-square overflow-hidden border border-divider bg-zinc-50 transition-colors group-hover:border-primary">
+              <div className="relative aspect-square overflow-hidden border border-divider bg-zinc-50 transition-colors group-hover:border-primary group-active:border-primary">
                 {product.imageSrc ? (
                   <Image
                     fill
@@ -220,7 +220,7 @@ export default function IndexPage({ categories }: HomePageProps) {
                 )}
               </div>
               <div className="pt-3 px-0.5">
-                <p className="text-xs font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
+                <p className="text-sm font-bold uppercase tracking-wide leading-snug line-clamp-2 text-foreground">
                   {product.title}
                 </p>
                 {product.minPrice && (
