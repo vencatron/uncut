@@ -284,7 +284,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: handles.map((handle) => ({ params: { handle } })),
-    fallback: "blocking",
+    fallback: false,
   };
 };
 

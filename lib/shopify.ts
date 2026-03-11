@@ -47,14 +47,19 @@ export function slimCollection(
 }
 
 async function safeFetch<T>(url: string, fallback: T): Promise<T> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
   try {
-    const res = await fetch(url, { next: { revalidate: 3600 } });
-
+    const res = await fetch(url, {
+      next: { revalidate: 3600 },
+      signal: controller.signal,
+    });
     if (!res.ok) return fallback;
-
     return (await res.json()) as T;
   } catch {
     return fallback;
+  } finally {
+    clearTimeout(timer);
   }
 }
 
