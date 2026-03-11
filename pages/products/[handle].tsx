@@ -9,7 +9,6 @@ import { Chip } from "@heroui/chip";
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { siteConfig } from "@/config/site";
-import { sanitizeHtml } from "@/lib/sanitize";
 import {
   getAllCategorizedProducts,
   getMinPrice,
@@ -23,6 +22,7 @@ interface ProductDetailProps {
   categoryHandle: string;
   categoryLabel: string;
   recommendations: RecommendedProduct[];
+  sanitizedBodyHtml: string;
 }
 
 export default function ProductDetailPage({
@@ -30,6 +30,7 @@ export default function ProductDetailPage({
   categoryHandle,
   categoryLabel,
   recommendations,
+  sanitizedBodyHtml,
 }: ProductDetailProps) {
   const img = product.images[0]?.src;
   const price = getMinPrice(product);
@@ -164,10 +165,10 @@ export default function ProductDetailPage({
             )}
 
             {/* Description */}
-            {product.body_html && (
+            {sanitizedBodyHtml && (
               <div
                 dangerouslySetInnerHTML={{
-                  __html: sanitizeHtml(product.body_html),
+                  __html: sanitizedBodyHtml,
                 }}
                 className="text-sm text-default-500 leading-relaxed prose prose-sm max-w-none border-t border-divider pt-4 [&_ul]:list-disc [&_ul]:pl-4 [&_li]:mb-1"
               />
@@ -317,8 +318,11 @@ export const getStaticProps: GetStaticProps<ProductDetailProps> = async ({
     categories,
   );
 
+  const { sanitizeHtml } = await import("@/lib/sanitize");
+  const sanitizedBodyHtml = product.body_html ? sanitizeHtml(product.body_html) : "";
+
   return {
-    props: { product, categoryHandle, categoryLabel, recommendations },
+    props: { product, categoryHandle, categoryLabel, recommendations, sanitizedBodyHtml },
     revalidate: 3600,
   };
 };
