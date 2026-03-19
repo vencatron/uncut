@@ -37,10 +37,16 @@ function findVariant(
   product: ShopifyProduct,
   selectedOptions: Record<string, string>,
 ): ShopifyVariant | undefined {
+  // For single-variant products (e.g. "Default Title"), return it directly
+  if (product.variants.length === 1) return product.variants[0];
+
   return product.variants.find((v) =>
     product.options.every((opt, i) => {
+      const selected = selectedOptions[opt.name];
+      // Skip options that aren't tracked (e.g. hidden "Title" option)
+      if (!selected) return true;
       const key = `option${i + 1}` as "option1" | "option2" | "option3";
-      return v[key] === selectedOptions[opt.name];
+      return v[key] === selected;
     }),
   );
 }
