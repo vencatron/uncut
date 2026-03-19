@@ -13,7 +13,7 @@ const STORE_URL = "https://uncut-packaging.myshopify.com";
  */
 export function slimProduct(product: ShopifyProduct): SlimProduct {
   const firstImage = product.images[0];
-  const availableVariants = product.variants.filter((v) => v.available);
+  const availableVariants = product.variants.filter((v) => v.available !== false);
   const prices = availableVariants
     .map((v) => parseFloat(v.price))
     .filter((p) => p > 0);
@@ -155,7 +155,7 @@ export async function getAllCategorizedProducts(): Promise<
 
 export function getMinPrice(product: ShopifyProduct): string {
   const prices = product.variants
-    .filter((v) => v.available)
+    .filter((v) => v.available !== false)
     .map((v) => parseFloat(v.price))
     .filter((p) => p > 0);
 
@@ -166,5 +166,5 @@ export function getMinPrice(product: ShopifyProduct): string {
 }
 
 export function getAvailableVariantCount(product: ShopifyProduct): number {
-  return product.variants.filter((v) => v.available).length;
+  return product.variants.filter((v) => v.available !== false).length;
 }

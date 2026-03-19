@@ -70,7 +70,7 @@ export default function ProductDetailPage({
   const [selectedOptions, setSelectedOptions] = useState<
     Record<string, string>
   >(() => {
-    const firstAvailable = product.variants.find((v) => v.available);
+    const firstAvailable = product.variants.find((v) => v.available !== false);
     const defaults: Record<string, string> = {};
 
     if (firstAvailable && product.options) {
@@ -93,7 +93,7 @@ export default function ProductDetailPage({
     : "";
 
   async function handlePurchase() {
-    if (!selectedVariant || !selectedVariant.available) return;
+    if (!selectedVariant || selectedVariant.available === false) return;
     setLoading(true);
     setError(null);
 
@@ -280,13 +280,13 @@ export default function ProductDetailPage({
               <Button
                 className="font-semibold uppercase tracking-wider flex-1"
                 color="primary"
-                isDisabled={!selectedVariant?.available}
+                isDisabled={!selectedVariant || selectedVariant.available === false}
                 isLoading={loading}
                 radius="none"
                 size="lg"
                 onPress={handlePurchase}
               >
-                {selectedVariant?.available ? "Purchase" : "Unavailable"}
+                {selectedVariant && selectedVariant.available !== false ? "Purchase" : "Unavailable"}
               </Button>
               <Button
                 isExternal
