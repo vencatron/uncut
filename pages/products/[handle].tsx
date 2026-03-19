@@ -1,5 +1,6 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
 
+import { useState } from "react";
 import Image from "next/image";
 import NextLink from "next/link";
 import { Link } from "@heroui/link";
@@ -12,11 +13,11 @@ import { siteConfig } from "@/config/site";
 import {
   getAllCategorizedProducts,
   getProductByHandle,
-  getMinPrice,
   getAvailableVariantCount,
 } from "@/lib/shopify";
+import { createCheckoutUrl } from "@/lib/shopify-storefront";
 import { getRecommendations, RecommendedProduct } from "@/lib/recommendations";
-import { ShopifyProduct } from "@/types";
+import { ShopifyProduct, ShopifyVariant } from "@/types";
 
 interface ProductDetailProps {
   product: ShopifyProduct;
@@ -24,6 +25,24 @@ interface ProductDetailProps {
   categoryLabel: string;
   recommendations: RecommendedProduct[];
   sanitizedBodyHtml: string;
+}
+
+function formatPrice(price: string): string {
+  const num = parseFloat(price);
+  if (isNaN(num) || num <= 0) return "";
+  return `$${num % 1 === 0 ? num.toFixed(0) : num.toFixed(2)}`;
+}
+
+function findVariant(
+  product: ShopifyProduct,
+  selectedOptions: Record<string, string>,
+): ShopifyVariant | undefined {
+  return product.variants.find((v) =>
+    product.options.every((opt, i) => {
+      const key = `option${i + 1}` as "option1" | "option2" | "option3";
+      return v[key] === selectedOptions[opt.name];
+    }),
+  );
 }
 
 export default function ProductDetailPage({
@@ -34,13 +53,53 @@ export default function ProductDetailPage({
   sanitizedBodyHtml,
 }: ProductDetailProps) {
   const img = product.images[0]?.src;
-  const price = getMinPrice(product);
   const variantCount = getAvailableVariantCount(product);
 
-  // Group options for display
+  // Options that are meaningful to display (filter out default/title)
   const displayOptions = product.options?.filter(
     (o) => o.name.toLowerCase() !== "title" && o.values[0] !== "Default Title",
   );
+
+  // Initialize selected options from the first available variant
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<string, string>
+  >(() => {
+    const firstAvailable = product.variants.find((v) => v.available);
+    const defaults: Record<string, string> = {};
+
+    if (firstAvailable && product.options) {
+      product.options.forEach((opt, i) => {
+        const key = `option${i + 1}` as "option1" | "option2" | "option3";
+        if (firstAvailable[key]) defaults[opt.name] = firstAvailable[key]!;
+      });
+    }
+
+    return defaults;
+  });
+
+  const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const selectedVariant = findVariant(product, selectedOptions);
+  const selectedPrice = selectedVariant
+    ? formatPrice(selectedVariant.price)
+    : "";
+
+  async function handlePurchase() {
+    if (!selectedVariant || !selectedVariant.available) return;
+    setLoading(true);
+    setError(null);
+
+    try {
+      const checkoutUrl = await createCheckoutUrl(selectedVariant.id, quantity);
+      window.location.href = checkoutUrl;
+    } catch (err) {
+      console.error("Checkout error:", err);
+      setError("Unable to create checkout. Please try again.");
+      setLoading(false);
+    }
+  }
 
   return (
     <DefaultLayout
@@ -126,9 +185,9 @@ export default function ProductDetailPage({
 
             {/* Price */}
             <div className="flex items-baseline gap-3">
-              {price ? (
+              {selectedPrice ? (
                 <span className="text-2xl font-bold text-primary">
-                  From {price}
+                  {selectedPrice}
                 </span>
               ) : (
                 <span className="text-sm text-default-400 uppercase tracking-wider">
@@ -142,7 +201,7 @@ export default function ProductDetailPage({
               )}
             </div>
 
-            {/* Options */}
+            {/* Variant Options */}
             {displayOptions && displayOptions.length > 0 && (
               <div className="flex flex-col gap-3 pt-1">
                 {displayOptions.map((opt) => (
@@ -152,18 +211,53 @@ export default function ProductDetailPage({
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {opt.values.map((val) => (
-                        <span
+                        <button
                           key={val}
-                          className="border border-divider px-3 py-2.5 min-h-[44px] inline-flex items-center text-sm font-semibold uppercase tracking-wide text-foreground"
+                          className={`border px-3 py-2.5 min-h-[44px] inline-flex items-center text-sm font-semibold uppercase tracking-wide transition-colors ${
+                            selectedOptions[opt.name] === val
+                              ? "border-primary text-primary bg-primary/5"
+                              : "border-divider text-foreground hover:border-default-400"
+                          }`}
+                          onClick={() =>
+                            setSelectedOptions((prev) => ({
+                              ...prev,
+                              [opt.name]: val,
+                            }))
+                          }
                         >
                           {val}
-                        </span>
+                        </button>
                       ))}
                     </div>
                   </div>
                 ))}
               </div>
             )}
+
+            {/* Quantity */}
+            <div className="pt-1">
+              <p className="text-xs font-bold uppercase tracking-widest text-default-400 mb-2">
+                Quantity
+              </p>
+              <div className="inline-flex items-center border border-divider">
+                <button
+                  className="px-3 py-2.5 min-h-[44px] text-sm font-bold text-foreground hover:bg-default-100 transition-colors disabled:opacity-30"
+                  disabled={quantity <= 1}
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                >
+                  −
+                </button>
+                <span className="px-4 py-2.5 min-h-[44px] inline-flex items-center text-sm font-bold tabular-nums text-foreground border-x border-divider min-w-[48px] justify-center">
+                  {quantity}
+                </span>
+                <button
+                  className="px-3 py-2.5 min-h-[44px] text-sm font-bold text-foreground hover:bg-default-100 transition-colors"
+                  onClick={() => setQuantity((q) => q + 1)}
+                >
+                  +
+                </button>
+              </div>
+            </div>
 
             {/* Description */}
             {sanitizedBodyHtml && (
@@ -178,28 +272,33 @@ export default function ProductDetailPage({
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-3 pt-2 border-t border-divider">
               <Button
-                isExternal
-                as={Link}
                 className="font-semibold uppercase tracking-wider flex-1"
                 color="primary"
-                href={siteConfig.links.contact}
+                isDisabled={!selectedVariant?.available}
+                isLoading={loading}
                 radius="none"
                 size="lg"
+                onPress={handlePurchase}
               >
-                Get a Quote
+                {selectedVariant?.available ? "Purchase" : "Unavailable"}
               </Button>
               <Button
                 isExternal
                 as={Link}
                 className="font-semibold uppercase tracking-wider flex-1 border-default-400 text-foreground hover:border-primary hover:text-primary"
-                href={siteConfig.links.store}
+                href={siteConfig.links.contact}
                 radius="none"
                 size="lg"
                 variant="bordered"
               >
-                View on Store
+                Get a Quote
               </Button>
             </div>
+
+            {/* Error */}
+            {error && (
+              <p className="text-sm text-danger">{error}</p>
+            )}
           </div>
         </div>
       </section>

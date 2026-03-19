@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <style>
+      /* Animation Sequence Timing Setup: 
+         Total 6s:
+         0-15%: Open
+         15-25%: Close Side Flaps
+         25-35%: Close Top/Bottom Flaps
+         35-45%: Tape Appears/Slides Across
+         45-65%: Taped Shut State
+         65-75%: Tape Peels/Disappears
+         75-85%: Top/Bottom Flaps Open
+         85-100%: Side Flaps Open
+      */
+
+      /* Box Base Styles */
+      .box-interior { fill: #3e2723; }
+      .box-exterior { fill: #8d6e63; }
+      .flap { fill: #a1887f; stroke: #5d4037; stroke-width: 2; stroke-linejoin: round; }
+      
+      /* Gift Inside */
+      .gift-box { fill: #e57373; rx: 4; }
+      .gift-ribbon { fill: #ffeb3b; }
+      .gift-bow { fill: none; stroke: #ffeb3b; stroke-width: 6; stroke-linecap: round; }
+
+      /* Animation keyframes for 3D fold out/in */
+      /* Left Flap */
+      .flap-left {
+        transform-origin: 100px 200px;
+        animation: foldLeft 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes foldLeft {
+        0%, 15% { transform: scaleX(1); filter: brightness(1.1); }
+        30%, 80% { transform: scaleX(-1); filter: brightness(0.9); }
+        95%, 100% { transform: scaleX(1); filter: brightness(1.1); }
+      }
+
+      /* Right Flap */
+      .flap-right {
+        transform-origin: 300px 200px;
+        animation: foldRight 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes foldRight {
+        0%, 15% { transform: scaleX(1); filter: brightness(1.1); }
+        30%, 80% { transform: scaleX(-1); filter: brightness(0.85); }
+        95%, 100% { transform: scaleX(1); filter: brightness(1.1); }
+      }
+
+      /* Top Flap */
+      .flap-top {
+        transform-origin: 200px 100px;
+        animation: foldTop 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes foldTop {
+        0%, 25% { transform: scaleY(1); filter: brightness(1.2); }
+        40%, 75% { transform: scaleY(-1); filter: brightness(1); }
+        90%, 100% { transform: scaleY(1); filter: brightness(1.2); }
+      }
+
+      /* Bottom Flap */
+      .flap-bottom {
+        transform-origin: 200px 300px;
+        animation: foldBottom 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes foldBottom {
+        0%, 25% { transform: scaleY(1); filter: brightness(1.15); }
+        40%, 75% { transform: scaleY(-0.95); filter: brightness(1.05); } /* Slightly offset depth */
+        90%, 100% { transform: scaleY(1); filter: brightness(1.15); }
+      }
+      
+      /* Tape */
+      .tape-wrapper {
+        transform-origin: center;
+      }
+      .tape {
+        fill: rgba(200, 200, 200, 0.6);
+        stroke: rgba(255, 255, 255, 0.3);
+        stroke-width: 1;
+        /* Tape sliding logic */
+        animation: applyTape 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: left center;
+      }
+      
+      @keyframes applyTape {
+        0%, 35% { transform: scaleX(0); opacity: 0; }
+        45%, 65% { transform: scaleX(1); opacity: 1; }
+        70%, 100% { transform: scaleX(0); opacity: 0; transform-origin: right center; }
+      }
+      
+      /* Shadow that grows/shrinks as box opens */
+      .box-shadow {
+        fill: rgba(0,0,0,0.1);
+        animation: shadowPulse 6s infinite ease-in-out;
+        transform-origin: 200px 200px;
+      }
+      @keyframes shadowPulse {
+        0%, 15% { transform: scale(1.4, 1.2); opacity: 0.15; }
+        40%, 75% { transform: scale(1.1, 1.05); opacity: 0.3; }
+        95%, 100% { transform: scale(1.4, 1.2); opacity: 0.15; }
+      }
+      
+      /* Floating gift movement */
+      .gift-container {
+        animation: floatGift 6s infinite ease-in-out;
+      }
+      @keyframes floatGift {
+         0%, 15% { transform: translateY(0) scale(1.1); opacity: 1; }
+         30%, 80% { transform: translateY(20px) scale(0.8); opacity: 0; }
+         95%, 100% { transform: translateY(0) scale(1.1); opacity: 1; }
+      }
+    </style>
+  </defs>
+
+  <!-- Background/Shadow -->
+  <ellipse class="box-shadow" cx="200" cy="200" rx="140" ry="140" />
+
+  <!-- Box Base/Exterior Edge -->
+  <rect class="box-exterior" x="90" y="90" width="220" height="220" rx="6" />
+
+  <!-- The deep interior of the box -->
+  <rect class="box-interior" x="100" y="100" width="200" height="200" />
+
+  <!-- The Item inside (A Gift) -->
+  <g class="gift-container">
+    <rect class="gift-box" x="140" y="140" width="120" height="120" />
+    <rect class="gift-ribbon" x="190" y="140" width="20" height="120" />
+    <rect class="gift-ribbon" x="140" y="190" width="120" height="20" />
+    <path class="gift-bow" d="M200 190 Q 180 160 160 180 Q 180 200 200 190" />
+    <path class="gift-bow" d="M200 190 Q 220 160 240 180 Q 220 200 200 190" />
+  </g>
+
+  <!-- Flaps (Fold outwards) -->
+  
+  <!-- Left Side Flap -->
+  <path class="flap flap-left" d="M100 100 L40 120 L40 280 L100 300 Z" />
+  
+  <!-- Right Side Flap -->
+  <path class="flap flap-right" d="M300 100 L360 120 L360 280 L300 300 Z" />
+
+  <!-- Top Side Flap -->
+  <path class="flap flap-top" d="M100 100 L120 40 L280 40 L300 100 Z" />
+
+  <!-- Bottom Side Flap -->
+  <path class="flap flap-bottom" d="M100 300 L120 360 L280 360 L300 300 Z" />
+
+  <!-- Tape sealing the deal -->
+  <g class="tape-wrapper">
+    <!-- Center tape strip covering the seam of the top/bottom flaps -->
+    <rect class="tape" x="85" y="185" width="230" height="30" />
+  </g>
+
+</svg>
