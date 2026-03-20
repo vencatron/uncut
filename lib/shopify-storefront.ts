@@ -87,5 +87,22 @@ export async function createCheckoutUrl(
     throw new Error("Failed to create cart");
   }
 
-  return data.cartCreate.cart.checkoutUrl;
+  // Shopify returns the checkoutUrl using the store's primary domain (the
+  // custom domain configured in Shopify admin, e.g. www.uncutpackaging.com).
+  // Because the headless storefront is hosted on Vercel, that domain doesn't
+  // serve Shopify's /cart/c/ checkout routes.  Rewrite the URL to use the
+  // canonical *.myshopify.com domain so the redirect lands on Shopify's
+  // hosted checkout instead of a Vercel 404.
+  const checkoutUrl = data.cartCreate.cart.checkoutUrl;
+  try {
+    const url = new URL(checkoutUrl);
+    if (!url.hostname.endsWith(".myshopify.com")) {
+      url.hostname = STOREFRONT_DOMAIN;
+      return url.toString();
+    }
+  } catch {
+    // If URL parsing fails, fall through and return as-is
+  }
+
+  return checkoutUrl;
 }
