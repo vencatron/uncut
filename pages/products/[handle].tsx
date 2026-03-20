@@ -102,7 +102,8 @@ export default function ProductDetailPage({
       window.location.href = checkoutUrl;
     } catch (err) {
       console.error("Checkout error:", err);
-      setError("Unable to create checkout. Please try again.");
+      const message = err instanceof Error ? err.message : "Unknown error";
+      setError(`Checkout failed: ${message}`);
       setLoading(false);
     }
   }

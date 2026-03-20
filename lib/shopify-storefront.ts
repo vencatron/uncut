@@ -9,6 +9,13 @@ async function storefrontFetch<T>(
   query: string,
   variables?: Record<string, unknown>,
 ): Promise<T> {
+  if (!STOREFRONT_DOMAIN || !STOREFRONT_TOKEN) {
+    throw new Error(
+      "Shopify Storefront API credentials are not configured. " +
+      "Set NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN and NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN.",
+    );
+  }
+
   const res = await fetch(STOREFRONT_URL, {
     method: "POST",
     headers: {
@@ -17,6 +24,12 @@ async function storefrontFetch<T>(
     },
     body: JSON.stringify({ query, variables }),
   });
+
+  if (!res.ok) {
+    throw new Error(
+      `Shopify Storefront API error: ${res.status} ${res.statusText}`,
+    );
+  }
 
   const json = await res.json();
 
@@ -36,6 +49,10 @@ export async function createCheckoutUrl(
   variantId: number,
   quantity: number = 1,
 ): Promise<string> {
+  if (!variantId || variantId <= 0) {
+    throw new Error("Invalid variant ID");
+  }
+
   const gid = `gid://shopify/ProductVariant/${variantId}`;
 
   const data = await storefrontFetch<{
