@@ -39,15 +39,6 @@ const nextConfig = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/cart/c/:path*",
-        destination: "https://uncut-packaging.myshopify.com/cart/c/:path*",
-        permanent: false,
-      },
-    ];
-  },
   async headers() {
     return [
       {
