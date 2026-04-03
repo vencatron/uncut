@@ -237,7 +237,6 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
             </p>
           </div>
           <Button
-            isExternal
             as={Link}
             className="shrink-0 px-10 font-semibold uppercase tracking-wider"
             color="primary"

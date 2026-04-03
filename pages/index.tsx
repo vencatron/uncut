@@ -141,7 +141,6 @@ export default function IndexPage({ categories }: HomePageProps) {
             Shop All Products
           </Button>
           <Button
-            isExternal
             as={Link}
             className="w-full sm:w-auto border-white/60 px-8 font-semibold uppercase tracking-wider text-white hover:border-white hover:text-white"
             href={siteConfig.links.contact}
@@ -277,7 +276,6 @@ export default function IndexPage({ categories }: HomePageProps) {
             operation — fast.
           </p>
           <Button
-            isExternal
             as={Link}
             className="px-12 font-semibold uppercase tracking-widest"
             color="primary"

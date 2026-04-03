@@ -64,7 +64,6 @@ export const Navbar = () => {
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
-            isExternal
             as={Link}
             className="text-sm font-semibold tracking-wide uppercase"
             color="primary"
@@ -98,7 +97,6 @@ export const Navbar = () => {
         </div>
         <div className="mt-6 px-2">
           <Button
-            isExternal
             as={Link}
             className="w-full font-semibold tracking-wide uppercase text-base"
             color="primary"
