@@ -6,16 +6,16 @@ export const siteConfig = {
     { label: "Home", href: "/" },
     { label: "Products", href: "/products" },
     { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "Contact", href: "https://www.uncutpackaging.com/contact" },
   ],
   navMenuItems: [
     { label: "Home", href: "/" },
     { label: "Products", href: "/products" },
     { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "Contact", href: "https://www.uncutpackaging.com/contact" },
   ],
   links: {
-    contact: "/contact",
+    contact: "https://www.uncutpackaging.com/contact",
     store: "https://uncutpackaging.com",
   },
 };

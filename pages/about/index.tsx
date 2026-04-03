@@ -181,6 +181,7 @@ export default function AboutPage() {
             right quantity for what your operation actually needs.
           </p>
           <Button
+            isExternal
             as={Link}
             className="px-12 font-semibold uppercase tracking-widest"
             color="primary"

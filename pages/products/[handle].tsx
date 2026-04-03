@@ -293,6 +293,7 @@ export default function ProductDetailPage({
                 {selectedVariant && selectedVariant.available !== false ? "Purchase" : "Unavailable"}
               </Button>
               <Button
+                isExternal
                 as={Link}
                 className="font-semibold uppercase tracking-wider flex-1 border-default-400 text-foreground hover:border-primary hover:text-primary"
                 href={siteConfig.links.contact}
