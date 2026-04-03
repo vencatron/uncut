@@ -197,9 +197,12 @@ export default function ProductDetailPage({
                   {selectedPrice}
                 </span>
               ) : (
-                <span className="text-sm text-default-400 uppercase tracking-wider">
+                <Link
+                  className="text-sm text-primary font-medium uppercase tracking-wider"
+                  href={siteConfig.links.contact}
+                >
                   Contact for pricing
-                </span>
+                </Link>
               )}
               {variantCount > 1 && (
                 <span className="text-xs text-default-400 uppercase tracking-wide">

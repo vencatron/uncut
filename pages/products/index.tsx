@@ -199,9 +199,13 @@ export default function ProductsPage({ categories }: ProductsPageProps) {
                         From {product.minPrice}
                       </span>
                     ) : (
-                      <span className="text-sm text-default-400">
+                      <Link
+                        className="text-sm text-primary font-medium"
+                        href={siteConfig.links.contact}
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         Contact for pricing
-                      </span>
+                      </Link>
                     )}
                     {product.variantCount > 1 && (
                       <span className="hidden sm:inline text-xs text-default-400 tabular-nums">
